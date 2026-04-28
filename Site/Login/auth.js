@@ -175,9 +175,9 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   }
 
   try {
-    const user = await registerWithSelectedProvider(payload);
-    alert("Account created successfully.");
-    window.location.href = dashboardPathFor(user);
+    await registerWithSelectedProvider(payload);
+alert("Verification email sent. Please verify your email first, then log in.");
+panel.classList.remove("show-register");
   } catch (error) {
     alert(error.message);
   }
@@ -208,3 +208,21 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
     alert(error.message);
   }
 });
+
+function setupNotifications() {
+  const toggle = document.getElementById("notifToggle");
+  const panel = document.getElementById("notifPanel");
+  const close = document.getElementById("notifClose");
+
+  if (!toggle || !panel || !close) return;
+
+  toggle.addEventListener("click", () => {
+    panel.classList.toggle("hidden");
+  });
+
+  close.addEventListener("click", () => {
+    panel.classList.add("hidden");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupNotifications);

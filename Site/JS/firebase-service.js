@@ -53,6 +53,7 @@
     const image = profile && profile.profileImage ? profile.profileImage : {};
     const localPath = image.localPath || "";
     const cloudUrl = image.cloudUrl || "";
+
     return {
       localPath,
       cloudUrl,
@@ -89,6 +90,9 @@
       department: profile.department || "",
       position: profile.position || "",
 
+      assignedGradeLevel: profile.assignedGradeLevel || "",
+      assignedSection: profile.assignedSection || "",
+
       accountStatus: profile.accountStatus || "active",
       profileCompleted: !!profile.profileCompleted,
 
@@ -110,15 +114,18 @@
   function mapFirestoreDoc(doc) {
     const data = doc.data() || {};
     const image = normalizeProfileImage(data);
+
     return {
       id: doc.id,
       uid: doc.id,
       email: data.email || "",
       role: data.role || "student",
+
       firstName: data.firstName || "",
       middleName: data.middleName || "",
       lastName: data.lastName || "",
       fullName: data.fullName || "",
+
       birthdate: data.birthdate || "",
       studentNumber: data.studentNumber || "",
       age: data.age || "",
@@ -126,22 +133,67 @@
       gradeLevel: data.gradeLevel || "",
       section: data.section || "",
       school: data.school || "",
+
       adminId: data.adminId || "",
       department: data.department || "",
       position: data.position || "",
+
+      assignedGradeLevel: data.assignedGradeLevel || "",
+      assignedSection: data.assignedSection || "",
+
       accountStatus: data.accountStatus || "active",
       profileCompleted: !!data.profileCompleted,
+
       badges: Array.isArray(data.badges) ? data.badges : [],
       quizScores: Array.isArray(data.quizScores) ? data.quizScores : [],
       progress: Array.isArray(data.progress) ? data.progress : [],
+
       profileImage: {
         localPath: image.localPath,
         cloudUrl: image.cloudUrl
       },
       avatarDataUrl: image.avatarDataUrl,
+
       createdAt: data.createdAt || null,
       updatedAt: data.updatedAt || null
     };
+  }
+
+  async function createUserProfileIfMissing(firebaseUser) {
+    const docRef = db.collection("users").doc(firebaseUser.uid);
+    const snap = await docRef.get();
+
+    if (snap.exists) return;
+
+    let pendingProfile = {};
+
+    try {
+      pendingProfile = JSON.parse(localStorage.getItem("pendingRegistrationProfile")) || {};
+    } catch (_) {
+      pendingProfile = {};
+    }
+
+    await docRef.set({
+      email: firebaseUser.email || pendingProfile.email || "",
+      firstName: pendingProfile.firstName || "",
+      middleName: pendingProfile.middleName || "",
+      lastName: pendingProfile.lastName || "",
+      fullName: `${pendingProfile.firstName || ""} ${pendingProfile.lastName || ""}`.trim(),
+      role: "student",
+      accountStatus: "active",
+      profileCompleted: false,
+      badges: [],
+      quizScores: [],
+      progress: [],
+      profileImage: {
+        localPath: "",
+        cloudUrl: ""
+      },
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    localStorage.removeItem("pendingRegistrationProfile");
   }
 
   const api = {
@@ -169,12 +221,15 @@
 
     getDashboardPath(user, depth = "") {
       if (!user) return `${depth}Login/auth.html`;
+
       if (user.role === "teacher") {
         return `${depth}Profiling/AdminPage/Dashboard/admindash.html`;
       }
+
       if (user.role === "developer") {
         return `${depth}Profiling/Developer/Dashboard/developer.html`;
       }
+
       return `${depth}Profiling/UserPage/Dashboard/dash.html`;
     },
 
@@ -186,31 +241,35 @@
         payload.password
       );
 
-      const uid = cred.user.uid;
+      await cred.user.sendEmailVerification();
 
-      await db.collection("users").doc(uid).set({
-        email: payload.email,
+      localStorage.setItem("pendingRegistrationProfile", JSON.stringify({
         firstName: payload.firstName || "",
         middleName: payload.middleName || "",
         lastName: payload.lastName || "",
-        fullName: `${payload.firstName || ""} ${payload.lastName || ""}`.trim(),
-        role: "student",
-        accountStatus: "active",
-        profileCompleted: false,
-        badges: [],
-        quizScores: [],
-        progress: [],
-        profileImage: { localPath: "", cloudUrl: "" },
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+        email: payload.email || ""
+      }));
 
-      return await mapUser(cred.user);
+      await auth.signOut();
+
+      return {
+        pendingVerification: true,
+        email: payload.email
+      };
     },
 
     async login(email, password) {
       if (!ensureInit()) throw new Error("Firebase is not configured yet.");
+
       const cred = await auth.signInWithEmailAndPassword(email, password);
+
+      if (!cred.user.emailVerified) {
+        await auth.signOut();
+        throw new Error("Please verify your email first before logging in.");
+      }
+
+      await createUserProfileIfMissing(cred.user);
+
       return await mapUser(cred.user);
     },
 
@@ -273,26 +332,33 @@
       return snap.docs.map(mapFirestoreDoc);
     },
 
-    async getStudents() {
+    async getStudents(adminUser = null) {
       if (!ensureInit()) throw new Error("Firebase is not configured yet.");
 
-      const snap = await db
-        .collection("users")
-        .where("role", "==", "student")
-        .get();
+      let query = db.collection("users").where("role", "==", "student");
 
+      if (adminUser && adminUser.role === "teacher") {
+        if (adminUser.assignedGradeLevel) {
+          query = query.where("gradeLevel", "==", adminUser.assignedGradeLevel);
+        }
+
+        if (adminUser.assignedSection) {
+          query = query.where("section", "==", adminUser.assignedSection);
+        }
+      }
+
+      const snap = await query.get();
       return snap.docs.map(mapFirestoreDoc);
     },
 
-    async updateUserRoleByEmail(email, role) {
+    async updateUserRoleByEmail(email, role, assignedGradeLevel = "", assignedSection = "") {
       if (!ensureInit()) throw new Error("Firebase is not configured yet.");
 
       const cleanEmail = String(email || "").trim().toLowerCase();
-      if (!cleanEmail) {
-        throw new Error("Email is required.");
-      }
+      if (!cleanEmail) throw new Error("Email is required.");
 
       const cleanRole = String(role || "").trim().toLowerCase();
+
       if (!["student", "teacher", "developer"].includes(cleanRole)) {
         throw new Error("Invalid role selected.");
       }
@@ -303,21 +369,27 @@
         .limit(1)
         .get();
 
-      if (snap.empty) {
-        throw new Error("User not found.");
-      }
+      if (snap.empty) throw new Error("User not found.");
 
-      const docRef = snap.docs[0].ref;
-
-      await docRef.update({
+      const patch = {
         role: cleanRole,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      };
+
+      if (cleanRole === "teacher") {
+        patch.assignedGradeLevel = assignedGradeLevel;
+        patch.assignedSection = assignedSection;
+      } else {
+        patch.assignedGradeLevel = "";
+        patch.assignedSection = "";
+      }
+
+      await snap.docs[0].ref.update(patch);
 
       return {
         id: snap.docs[0].id,
         ...snap.docs[0].data(),
-        role: cleanRole
+        ...patch
       };
     }
   };

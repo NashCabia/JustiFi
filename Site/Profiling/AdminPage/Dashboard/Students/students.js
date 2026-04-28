@@ -83,7 +83,8 @@ async function loadStudents() {
 
   try {
     if (fb && fb.isConfigured && fb.isConfigured()) {
-      students = await fb.getStudents();
+      const currentAdmin = await fb.getCurrentUser();
+students = await fb.getStudents(currentAdmin);
     } else if (store && typeof store.getStudents === "function") {
       students = store.getStudents();
     }
@@ -131,29 +132,57 @@ async function loadStudents() {
     });
   }
 
-  renderStudents(students);
+ const progressFilter = document.getElementById("progressFilter");
+const gradeFilter = document.getElementById("gradeFilter");
+const sectionFilter = document.getElementById("sectionFilter");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const keyword = searchInput.value.toLowerCase().trim();
+function getAverageProgress(student) {
+  const progress = Array.isArray(student.progress) ? student.progress : [];
+  if (!progress.length) return 0;
 
-      const filtered = students.filter((student, idx) => {
-        const fullName =
-          student.fullName ||
-          [student.firstName, student.middleName, student.lastName].filter(Boolean).join(" ").trim() ||
-          `Student ${idx + 1}`;
+  const total = progress.reduce((sum, value) => sum + Number(value || 0), 0);
+  return total / progress.length;
+}
 
-        const email = student.email || "";
+function applyFilters() {
+  const keyword = searchInput ? searchInput.value.toLowerCase().trim() : "";
+  const progressSort = progressFilter ? progressFilter.value : "";
+  const grade = gradeFilter ? gradeFilter.value.toLowerCase().trim() : "";
+  const section = sectionFilter ? sectionFilter.value.toLowerCase().trim() : "";
 
-        return (
-          fullName.toLowerCase().includes(keyword) ||
-          email.toLowerCase().includes(keyword)
-        );
-      });
+  let filtered = students.filter((student, idx) => {
+    const fullName =
+      student.fullName ||
+      [student.firstName, student.middleName, student.lastName]
+        .filter(Boolean)
+        .join(" ")
+        .trim() ||
+      `Student ${idx + 1}`;
 
-      renderStudents(filtered);
-    });
+    const matchesName = fullName.toLowerCase().includes(keyword);
+    const matchesGrade =
+      !grade || String(student.gradeLevel || "").toLowerCase().includes(grade);
+    const matchesSection =
+      !section || String(student.section || "").toLowerCase().includes(section);
+
+    return matchesName && matchesGrade && matchesSection;
+  });
+
+  if (progressSort === "high") {
+    filtered.sort((a, b) => getAverageProgress(b) - getAverageProgress(a));
   }
+
+  if (progressSort === "low") {
+    filtered.sort((a, b) => getAverageProgress(a) - getAverageProgress(b));
+  }
+
+  renderStudents(filtered);
+}
+
+if (searchInput) searchInput.addEventListener("input", applyFilters);
+if (progressFilter) progressFilter.addEventListener("change", applyFilters);
+if (gradeFilter) gradeFilter.addEventListener("input", applyFilters);
+if (sectionFilter) sectionFilter.addEventListener("input", applyFilters);
 }
 
 function setupMenu() {

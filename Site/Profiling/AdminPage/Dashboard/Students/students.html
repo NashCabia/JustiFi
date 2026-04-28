@@ -53,11 +53,33 @@
       <div class="list-header">
         <h2>Students</h2>
         <input
-          type="text"
-          id="studentSearch"
-          class="search-input"
-          placeholder="Search student..."
-        />
+  type="text"
+  id="studentSearch"
+  class="search-input"
+  placeholder="Search student name..."
+/>
+
+<select id="progressFilter" class="search-input">
+  <option value="">Progress: Default</option>
+  <option value="high">Highest Progress</option>
+  <option value="low">Lowest Progress</option>
+</select>
+
+<input
+  type="text"
+  id="gradeFilter"
+  class="search-input"
+  placeholder="Filter grade..."
+/>
+
+<input
+  type="text"
+  id="sectionFilter"
+  class="search-input"
+  placeholder="Filter section..."
+/>
+
+        
       </div>
 
       <div id="student-list" class="student-list">

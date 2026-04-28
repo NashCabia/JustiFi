@@ -338,3 +338,21 @@ function setupMenu() {
   if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeMenu);
   if (overlay) overlay.addEventListener("click", closeMenu);
 }
+
+function setupNotifications() {
+  const toggle = document.getElementById("notifToggle");
+  const panel = document.getElementById("notifPanel");
+  const close = document.getElementById("notifClose");
+
+  if (!toggle || !panel || !close) return;
+
+  toggle.addEventListener("click", () => {
+    panel.classList.toggle("hidden");
+  });
+
+  close.addEventListener("click", () => {
+    panel.classList.add("hidden");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", setupNotifications);

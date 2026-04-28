@@ -140,6 +140,19 @@
     </section>
   </main>
 
+  <button id="notifToggle" class="notif-toggle">🔔</button>
+
+<div id="notifPanel" class="notif-panel hidden">
+  <div class="notif-header">
+    <h3>Notifications</h3>
+    <button id="notifClose">✕</button>
+  </div>
+
+  <div id="notifList" class="notif-list">
+    <p class="notif-item">No notifications yet.</p>
+  </div>
+</div>
+
   <script src="../../../../JS/firebase-config.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>

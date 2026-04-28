@@ -90,7 +90,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 3px;
+  height: 2px;
   pointer-events: none;
   background-color: #000000;
 }
@@ -1273,3 +1273,191 @@ footer {
   transform: translateY(0);
 }
 
+/* ==============================
+   MOBILE RESPONSIVE FIX
+   paste at bottom of style.css
+============================== */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* smoother mobile scaling */
+section {
+  padding: clamp(60px, 10vw, 100px) clamp(18px, 6vw, 10%);
+}
+
+.content {
+  width: min(100%, 900px);
+  padding: clamp(20px, 5vw, 40px);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 90px;
+  }
+
+  /* bottom nav fix */
+  .floating-nav {
+    width: calc(100vw - 24px);
+    max-width: 420px;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .floating-nav::before {
+    width: 115%;
+  }
+
+  .floating-nav a {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* hero/parallax scaling */
+  .room.hero {
+    height: 300vh;
+  }
+
+  .room-stage {
+    height: 100svh;
+  }
+
+  .JustifiLogo {
+    top: 25%;
+  }
+
+  .JustifiLogo img {
+    height: clamp(95px, 28vw, 150px);
+  }
+
+  .JustifiAction {
+    top: 45%;
+    transform: translate(-50%, -50%) translateY(110px) scale(var(--logo-scale));
+  }
+
+  .justifi-btn img {
+    height: clamp(42px, 12vw, 58px);
+  }
+
+  .coin-anim {
+    width: min(78vw, 340px);
+    height: min(78vw, 340px);
+  }
+
+  /* cloud/scene mobile positions */
+  .room {
+    --room-cloud1-scale: 2.2;
+    --room-cloud2-scale: 1.2;
+    --room-cloud3-scale: 1.6;
+    --room-cloud4-scale: 1.4;
+    --room-cloud5-scale: 1.5;
+    --room-cloud6-scale: 1.5;
+    --room-school-scale: 1;
+
+    --room-cloud1-y: 520px;
+    --room-cloud2-x: -160px;
+    --room-cloud2-y: -330px;
+    --room-cloud3-x: -260px;
+    --room-cloud3-y: -260px;
+    --room-cloud4-x: -180px;
+    --room-cloud4-y: -120px;
+    --room-cloud5-x: 180px;
+    --room-cloud5-y: -260px;
+    --room-cloud6-y: -120px;
+
+    --room-cloud2A-x: -240px;
+    --room-cloud2A-y: -260px;
+    --room-cloud2B-x: 240px;
+    --room-cloud2B-y: -260px;
+    --room-cloud3A-x: 240px;
+    --room-cloud3A-y: -180px;
+  }
+
+  /* text sections */
+  .section-bg {
+    min-height: auto;
+    background-attachment: scroll;
+  }
+
+  #about .about-panel,
+  .announcement-card,
+  .character-info {
+    padding: 22px;
+  }
+
+  #about .about-panel h3,
+  .character-info h3 {
+    font-size: 22px;
+  }
+
+  /* characters section fix */
+  .character-layout {
+    flex-direction: column;
+    gap: 28px;
+    margin-top: 30px;
+  }
+
+  .slider-area {
+    width: 100%;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .character-card {
+    width: min(72vw, 280px);
+    height: min(95vw, 390px);
+  }
+
+  .character-info {
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .prev,
+  .next {
+    font-size: 34px;
+  }
+
+  #characters .content {
+    transform: none;
+  }
+
+  /* gallery fix */
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* very small phones */
+@media (max-width: 420px) {
+  .floating-nav {
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .floating-nav a {
+    width: 36px;
+    height: 36px;
+  }
+
+  .floating-nav a img {
+    width: 19px;
+    height: 19px;
+  }
+
+  .character-card {
+    width: 70vw;
+    height: 360px;
+  }
+}

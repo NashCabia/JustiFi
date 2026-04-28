@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JustiFi | Admin Dashboard</title>
+  <link rel="stylesheet" href="admindash.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="../Images/logo.png" alt="JustiFi logo" />
+    </a>
+
+    <div class="topbar-right">
+      <span class="welcome">Welcome, <strong id="navAdminName">Admin</strong></span>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div id="menuOverlay" class="menu-overlay hidden"></div>
+
+  <aside id="sideMenu" class="side-menu">
+    <div class="side-menu-header">
+      <h3>Menu</h3>
+      <button id="closeMenuBtn" class="close-menu-btn" type="button">✕</button>
+    </div>
+
+    <div class="side-menu-body">
+      <button class="menu-link" onclick="goToProfile()">Profile</button>
+      <button class="menu-link" onclick="goToStudents()">Student List</button>
+      <button class="menu-link logout-btn" onclick="logoutUser()">Logout</button>
+    </div>
+  </aside>
+
+  <div class="back-row">
+    <a class="back-btn" href="../../../index.html">Back</a>
+  </div>
+
+  <main class="dashboard-shell">
+    <section class="hero-card">
+      <p class="eyebrow">JUSTIFI ADMIN DASHBOARD</p>
+      <h1>Hello, <span id="heroAdminName">Admin</span></h1>
+      <p class="hero-subtext">
+        View registered students and monitor their individual learning progress directly from this dashboard.
+      </p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Students</span>
+        <strong class="stat-value" id="totalStudents">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Active Students</span>
+        <strong class="stat-value" id="activeStudents">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Overall Completion</span>
+        <strong class="stat-value" id="overallCompletion">0%</strong>
+      </div>
+    </section>
+
+    <section class="chart-card">
+      <div class="chart-head">
+        <div>
+          <p class="card-kicker">LIVE FIREBASE DATA</p>
+          <h2>Student Monitoring Overview</h2>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="adminOverviewChart"></canvas>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <p class="card-kicker">QUICK ACCESS</p>
+      <h2>Main Sections</h2>
+
+      <div class="action-grid two-col">
+        <button class="feature-card" onclick="goToProfile()">
+          <h3>Profile</h3>
+          <p>View and manage your admin information.</p>
+        </button>
+
+        <button class="feature-card" onclick="goToStudents()">
+          <h3>Student List</h3>
+          <p>Select a student to view their progress, scores, and performance.</p>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+  <script src="../../../JS/firebase-config.js"></script>
+  <script src="../../../JS/firebase-service.js"></script>
+  <script src="../../../JS/app-core.js"></script>
+  <script src="../../../JS/auth-guard.js"></script>
+  <script>
+    window.JustifiAuthGuard.protectPage("../../../");
+  </script>
+  <script src="admindash.js"></script>
+</body>
+</html>

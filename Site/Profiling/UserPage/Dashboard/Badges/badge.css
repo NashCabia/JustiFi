@@ -1,0 +1,129 @@
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(60, 51, 118, 0.10), transparent 35%),
+    linear-gradient(180deg, #ffffff, #f4f5f8);
+  color: #1c1132;
+  font-family: "Segoe UI";
+}
+
+
+.topbar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: #161220;
+  color: #fff;
+  border-bottom: 1px solid var(--border-dark);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.back-row{
+  padding: 14px 22px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 74px;
+  height: 74px;
+  object-fit: contain;
+}
+
+.topbar-left{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.back-row {
+  padding: 18px 24px 0;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 55px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #1c1132;
+}
+
+
+.topbar-right{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.welcome{ opacity:.95; }
+
+.profile-btn{
+  width:44px; height:44px;
+  border:1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.10);
+  border-radius:999px;
+  padding:0;
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+}
+.profile-btn:hover{ background: rgba(255,255,255,.14); }
+
+.avatar{
+  width:36px; height:36px;
+  border-radius:999px;
+  object-fit:cover;
+}
+
+.badges-page {
+  padding: 14px 100px 100px;
+}
+
+.badges-page h1{
+  margin: 0 0 10px;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 8px;
+}
+
+.badge {
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #1c1132;
+  transition: 0.3s;
+}
+
+.badge-img{
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  border-radius: 14px;
+  object-fit: cover;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+}
+
+.badge.locked {
+  opacity: 0.4;
+}

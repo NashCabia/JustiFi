@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account</title>
+<link rel="stylesheet" href="auth.css">
+</head>
+<body>
+<div class="background">
+  <img src="../assets/Login/LoginBG.jpg" alt="Background Image">
+</div>
+
+<div class="auth-container">
+  <div class="auth-panel">
+    <div class="form login">
+      <h2>Login</h2>
+      <input id="loginEmail" type="email" placeholder="Email">
+      <input id="loginPassword" type="password" placeholder="Password">
+
+      <label class="remember-row">
+        <input id="rememberMe" type="checkbox">
+        Remember Me
+      </label>
+
+      <button id="loginBtn">Login</button>
+      <p>Don't have an account?</p>
+      <button class="switch" id="showRegister">Register</button>
+      <a class="back" href="../index.html">← Back to Site</a>
+    </div>
+
+    <div class="info-area">
+      <h1>JustiFi</h1>
+      <p>Set up now with local demo storage, then swap to Firebase later without rebuilding the UI.</p>
+    </div>
+
+    <div class="form register register-scroll">
+      <h2>Create Account</h2>
+      <div class="two-col">
+        <input id="regLastName" type="text" placeholder="Last name">
+        <input id="regFirstName" type="text" placeholder="First name">
+      </div>
+      <input id="regMiddleName" type="text" placeholder="Middle name">
+      <input id="regEmail" type="email" placeholder="Email">
+      <input id="regPassword" type="password" placeholder="Password">
+      <button id="registerBtn">Register</button>
+      <p>Already have an account?</p>
+      <button class="switch" id="showLogin">Login</button>
+      <a class="back" href="../index.html">← Back to Site</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script src="../JS/firebase-config.js"></script>
+<script src="../JS/firebase-service.js"></script>
+<script src="../JS/app-core.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

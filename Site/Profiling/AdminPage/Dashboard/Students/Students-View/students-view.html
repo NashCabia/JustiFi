@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JustiFi | Student Progress</title>
+  <link rel="stylesheet" href="../students.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="../../../Images/logo.png" alt="JustiFi logo" />
+    </a>
+
+    <div class="topbar-right">
+      <span class="welcome">Welcome, <strong id="navUserName">Admin</strong></span>
+
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <div id="menuOverlay" class="menu-overlay hidden"></div>
+
+  <aside id="sideMenu" class="side-menu">
+    <div class="side-menu-header">
+      <h3>Menu</h3>
+      <button id="closeMenuBtn" class="close-menu-btn" type="button">✕</button>
+    </div>
+
+    <div class="side-menu-body">
+      <button class="menu-link" onclick="goToDashboard()">Dashboard</button>
+      <button class="menu-link" onclick="goToStudents()">Student List</button>
+      <button class="menu-link logout-btn" onclick="logoutUser()">Logout</button>
+    </div>
+  </aside>
+
+  <div class="back-row">
+    <a class="back-btn" href="../students.html">Back</a>
+  </div>
+
+  <main class="students-shell">
+    <section class="hero-card">
+      <p class="eyebrow">STUDENT PROGRESS</p>
+      <h1 id="student-name">Student Name</h1>
+      <p class="hero-subtext">
+        This page shows the selected student’s progress, scores, and achievements.
+      </p>
+    </section>
+
+    <section class="list-card">
+      <div class="list-header">
+        <h2>Progress Overview</h2>
+      </div>
+
+      <div class="stats-grid-progress">
+        <div class="progress-mini-card">
+          <span class="mini-label">Completed Lessons</span>
+          <strong id="completedLessons">0</strong>
+        </div>
+
+        <div class="progress-mini-card">
+          <span class="mini-label">Badges Earned</span>
+          <strong id="badgeCount">0</strong>
+        </div>
+
+        <div class="progress-mini-card">
+          <span class="mini-label">Quiz Average</span>
+          <strong id="quizAverage">0%</strong>
+        </div>
+      </div>
+
+      <div class="chart-box">
+        <canvas id="progressChart"></canvas>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="view.js"></script>
+</body>
+</html>

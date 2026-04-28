@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JustiFi | Developer Dashboard</title>
+  <link rel="stylesheet" href="developer.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="Images/logo.png" alt="JustiFi logo" />
+    </a>
+
+    <div class="topbar-right">
+      <span class="welcome">Welcome, <strong id="navUserName">Developer</strong></span>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div id="menuOverlay" class="menu-overlay hidden"></div>
+
+  <aside id="sideMenu" class="side-menu">
+    <div class="side-menu-header">
+      <h3>Menu</h3>
+      <button id="closeMenuBtn" class="close-menu-btn" type="button">✕</button>
+    </div>
+
+    <div class="side-menu-body">
+      <button class="menu-link" onclick="goToAssignRoles()">Assign Roles</button>
+      <button class="menu-link" onclick="goToManageAccounts()">Manage Accounts</button>
+      <button class="menu-link" onclick="goToSystemSettings()">System Settings</button>
+      <button class="menu-link logout-btn" onclick="logoutUser()">Logout</button>
+    </div>
+  </aside>
+
+  <div class="back-row">
+    <a class="back-btn" href="../../../index.html">Back</a>
+  </div>
+
+  <main class="dashboard-shell">
+    <section class="hero-card">
+      <p class="eyebrow">JUSTIFI DEVELOPER DASHBOARD</p>
+      <h1>Hello, <span id="heroDevName">Developer</span></h1>
+      <p class="hero-subtext">
+        Manage roles, organize accounts, and configure the developer-side controls of the JustiFi system.
+      </p>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Total Users</span>
+        <strong class="stat-value" id="totalUsers">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Student Accounts</span>
+        <strong class="stat-value" id="studentAccounts">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Teacher Accounts</span>
+        <strong class="stat-value" id="teacherAccounts">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span class="stat-label">Developer Accounts</span>
+        <strong class="stat-value" id="developerAccounts">0</strong>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <p class="card-kicker">QUICK ACCESS</p>
+      <h2>Main Developer Tools</h2>
+
+      <div class="action-grid">
+        <button class="feature-card" onclick="goToAssignRoles()">
+          <h3>Assign Roles</h3>
+          <p>Promote users or change account roles inside the system.</p>
+        </button>
+
+        <button class="feature-card" onclick="goToManageAccounts()">
+          <h3>Manage Accounts</h3>
+          <p>View, organize, and monitor registered user accounts.</p>
+        </button>
+
+        <button class="feature-card" onclick="goToSystemSettings()">
+          <h3>System Settings</h3>
+          <p>Access reserved developer controls and system options.</p>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+  <script src="../../../JS/firebase-config.js"></script>
+  <script src="../../../JS/firebase-service.js"></script>
+  <script src="../../../JS/app-core.js"></script>
+  <script src="../JS/dev-dashboard.js"></script>
+  <script src="../../../JS/auth-guard.js"></script>
+<script>
+  window.JustifiAuthGuard.protectPage("../../../");
+</script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assign Roles</title>
+  <link rel="stylesheet" href="../CSS/assign-roles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../developer.html">
+      <img class="brand-logo" src="../Images/logo.png" alt="JustiFi logo" />
+    </a>
+    <div class="topbar-right">
+      <span class="welcome">Assign Roles</span>
+    </div>
+  </header>
+
+  <div class="back-row">
+    <a class="back-btn" href="../developer.html">Back</a>
+  </div>
+
+  <main class="page-shell">
+    <section class="hero-card">
+      <p class="eyebrow">DEVELOPER TOOL</p>
+      <h1>Assign Roles</h1>
+      <p class="hero-subtext">Update a user account role. Works with local demo data now and Firebase when configured.</p>
+    </section>
+
+    <section class="panel-card">
+      <div class="panel-head">
+        <h2>Role Update</h2>
+      </div>
+
+      <div class="user-list">
+        <div class="user-card">
+          <div class="user-main">
+            <h3>Target User</h3>
+            <p>Enter the email of the account you want to update.</p>
+            <input class="search-input" type="email" id="email" placeholder="User Email" />
+          </div>
+
+          <div class="role-box">
+            <label for="role">Role</label>
+            <select class="role-select" id="role">
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+              <option value="developer">Developer</option>
+            </select>
+          </div>
+
+          <button class="assign-btn" id="assignRoleBtn" type="button">Update Role</button>
+        </div>
+      </div>
+
+      <div class="status-note">This page uses demo data now and will sync with Firebase when configured.</div>
+    </section>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+  <script src="../../../../JS/firebase-config.js"></script>
+  <script src="../../../../JS/firebase-service.js"></script>
+  <script src="../../../../JS/app-core.js"></script>
+  <script src="../../JS/dev.js"></script>
+</body>
+</html>

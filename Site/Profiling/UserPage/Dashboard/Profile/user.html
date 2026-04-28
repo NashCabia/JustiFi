@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JustiFi | User Profile</title>
+  <link rel="stylesheet" href="user.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#">
+      <img class="brand-logo" src="Images/logo.png" alt="JustiFi logo" />
+    </a>
+
+    <div class="topbar-right">
+      <span class="welcome">Hello, <strong id="navUserName">Student</strong></span>
+      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">☰</button>
+    </div>
+  </header>
+
+  <div id="menuOverlay" class="menu-overlay hidden"></div>
+
+  <aside id="sideMenu" class="side-menu">
+    <div class="side-menu-header">
+      <h3>Menu</h3>
+      <button id="closeMenuBtn" class="close-menu-btn" type="button">✕</button>
+    </div>
+
+    <div class="side-menu-body">
+      <button class="menu-link" onclick="goToDashboard()">Dashboard</button>
+      <button class="menu-link" onclick="goToBadges()">Badges</button>
+      <button class="menu-link logout-btn" onclick="logoutUser()">Logout</button>
+    </div>
+  </aside>
+
+  <div class="back-row">
+    <a class="back-btn" href="../dash.html">Back</a>
+  </div>
+
+  <main class="profile-shell">
+    <section class="profile-card">
+      <img id="profileImage" src="Images/nash.jpg" class="profile-img" alt="Profile Image" />
+      <label for="profileImageInput" class="image-upload-btn">Change Photo</label>
+      <input id="profileImageInput" class="image-upload-input" type="file" accept="image/*" />
+      <h2 id="profileDisplayName">Loading...</h2>
+      <p id="userRole">Student</p>
+      <p id="userStatus" class="sub-info">Loading...</p>
+    </section>
+
+    <section class="info-card">
+      <div class="section-head">
+        <h3>Personal Information</h3>
+      </div>
+
+      <form id="profileForm" class="info-grid">
+        <div class="info-row">
+          <label for="firstName">First Name</label>
+          <input id="firstName" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="middleName">Middle Name</label>
+          <input id="middleName" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="lastName">Last Name</label>
+          <input id="lastName" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="studentNumber">Student Number</label>
+          <input id="studentNumber" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="birthdate">Birthdate</label>
+          <input id="birthdate" class="profile-input" type="date" />
+        </div>
+
+        <div class="info-row">
+          <label for="age">Age</label>
+          <input id="age" class="profile-input" type="number" min="0" />
+        </div>
+
+        <div class="info-row">
+          <label for="sex">Sex</label>
+          <select id="sex" class="profile-input">
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Prefer not to say">Prefer not to say</option>
+          </select>
+        </div>
+
+        <div class="info-row">
+          <label for="gradeLevel">Grade Level</label>
+          <input id="gradeLevel" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="section">Section</label>
+          <input id="section" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row">
+          <label for="school">School</label>
+          <input id="school" class="profile-input" type="text" />
+        </div>
+
+        <div class="info-row readonly-row">
+          <span>Email</span>
+          <strong id="email">Not available</strong>
+        </div>
+
+        <div class="info-row readonly-row">
+          <span>Role</span>
+          <strong id="roleField">Not available</strong>
+        </div>
+
+        <div class="info-row readonly-row">
+          <span>Account Status</span>
+          <strong id="accountStatus">Not available</strong>
+        </div>
+
+        <div class="info-row readonly-row">
+          <span>Created At</span>
+          <strong id="createdAt">Not available</strong>
+        </div>
+
+        <div class="info-row readonly-row">
+          <span>Last Updated</span>
+          <strong id="updatedAt">Not available</strong>
+        </div>
+      </form>
+
+      <div class="form-actions">
+        <button id="saveProfileBtn" class="edit-btn" type="button">Save Changes</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../../../JS/firebase-config.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+  <script src="../../../../JS/firebase-service.js"></script>
+<script src="../../../JS/session-manager.js"></script>
+  <script src="user.js"></script>
+  
+</body>
+</html>

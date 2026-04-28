@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/Title/Coin3.png" />
+  <title>JustiFi</title>
+  <link rel="stylesheet" href="CSS/style.css" />
+</head>
+<body>
+
+  <nav class="navbar hide">
+    <a class="logo" href="#home" aria-label="JustiFi Home">
+      <img src="assets/Title/JustiFiLogo.png" alt="JustiFi" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#announcement">Announcement</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#characters">Characters</a></li>
+    </ul>
+    <a class="nav-user" href="Login/auth.html" id="nav-user">Login</a>
+  </nav>
+
+<!-- Floating Bottom Nav -->
+<div class="floating-nav">
+  <a href="#home" aria-label="Home">
+    <img src="assets/Icons/home.png" alt="" aria-hidden="true" />
+    <span class="visually-hidden">HOME</span>
+  </a>
+  <a href="#announcement" aria-label="News">
+    <img src="assets/Icons/megaphone.png" alt="" aria-hidden="true" />
+    <span class="visually-hidden">NEWS</span>
+  </a>
+  <a href="#about" aria-label="About">
+    <img src="assets/Icons/info.png" alt="" aria-hidden="true" />
+    <span class="visually-hidden">ABOUT</span>
+  </a>
+  <a href="#characters" aria-label="Characters">
+    <img src="assets/Icons/reading.png" alt="" aria-hidden="true" />
+    <span class="visually-hidden">CHARACTERS</span>
+  </a>
+  <a id="floating-auth" href="Login/auth.html" aria-label="Login">
+    <img src="assets/Icons/user.png" alt="" aria-hidden="true" />
+    <span class="visually-hidden floating-auth-label">LOGIN</span>
+  </a>
+</div>
+
+  <!-- HERO / ROOM (2 sections tall parallax) -->
+<section id="home" class="hero room">
+  <div class="room-stage">
+    <div class="room-layer room-layer--background" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud1" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud2" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud3" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud4" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud5" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud6" aria-hidden="true"></div>
+    <div class="room-layer room-layer--school" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud2A" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud2B" aria-hidden="true"></div>
+    <div class="room-layer room-layer--cloud3A" aria-hidden="true"></div>
+<div class="JustifiLogo">
+  <img src="assets/Title/JustiFiLogo.png" alt="Logo">
+</div>
+
+<div class="JustifiAction">
+  <button class="justifi-btn" type="button" aria-label="JustiFi button">
+    <img src="assets/Parallax/Button.png" alt="Button">
+  </button>
+</div>
+
+
+    <!-- Duplicate layer slots (copy/paste and set CSS variables inline when needed) -->
+    <div class="room-layer room-layer--slot" aria-hidden="true"></div>
+    <div class="room-layer room-layer--slot" aria-hidden="true"></div>
+    <div class="Coin">
+      <div class="coin-anim" aria-hidden="true">
+        <img src="assets/Parallax/Coin3.png" class="coin-frame coin-frame--3" alt="">
+        <img src="assets/Parallax/Coin1.png" class="coin-frame coin-frame--1" alt="">
+        <img src="assets/Parallax/Coin2.png" class="coin-frame coin-frame--2" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ANNOUNCEMENT -->
+<section id="announcement" class="announcement section-bg bg2">
+  <div class="overlay"></div>
+  <div class="content">
+    <h2>Latest Announcement</h2>
+    <div class="announcement-card">
+      <h3></h3>
+      <p>
+        Registration for Closed Beta Test opens next month.
+        Experience the world before everyone else.
+      </p>
+      <button class="announcement-btn">Learn More</button>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section-bg bg3">
+  <div class="overlay"></div>
+  <div class="content">
+    <h2>About The Game</h2>
+    <div class="about-panels">
+      <div class="about-panel">
+        <h3>Overview</h3>
+        <p>
+          JustiFi is an interactive, choice-driven visual novel designed to improve legal literacy among senior high school students. The game places players in real-life scenarios involving youth protection, gender safety, cyber safety, and police encounters, allowing them to make decisions and experience the consequences of their actions.
+        </p>
+        <p>
+          Unlike traditional learning methods, JustiFi uses branching narratives and decision-based gameplay to simulate real-world situations. Each choice made by the player influences the outcome of the story, guiding them toward either a good or bad ending depending on their understanding of legal concepts.
+        </p>
+        <p>
+          Through this approach, JustiFi aims to make learning about laws engaging, practical, and memorable, helping students become more informed and responsible individuals in society.
+        </p>
+        <p>
+          <strong>Mission:</strong> To provide an engaging and interactive platform that enhances students&rsquo; understanding of legal rights, responsibilities, and real-world consequences through gamified learning.
+        </p>
+        <p>
+          <strong>Vision:</strong> To become a widely recognized educational tool that promotes legal awareness and critical decision-making among students through immersive digital experiences.
+        </p>
+      </div>
+
+      <div class="about-panel">
+        <h3>Project Overview</h3>
+        <p><strong>JustiFi is developed as both a:</strong></p>
+        <ul class="about-list">
+          <li>Mobile Application (Unity Game) &ndash; for students</li>
+          <li>Web Application &ndash; for admin and teacher monitoring</li>
+        </ul>
+
+        <p><strong>The system includes:</strong></p>
+        <ul class="about-list">
+          <li>User authentication and account management</li>
+          <li>Interactive story modules with branching logic</li>
+          <li>Quiz and assessment system</li>
+          <li>Progress tracking and analytics</li>
+          <li>Admin dashboard for content and student monitoring</li>
+        </ul>
+
+        <p><strong>Key Features:</strong></p>
+        <ul class="about-list">
+          <li>Interactive storytelling</li>
+          <li>Scenario-based legal education</li>
+          <li>Quiz assessments</li>
+          <li>Progress tracking and achievements</li>
+        </ul>
+      </div>
+
+      <div class="about-panel">
+        <h3>About the Team</h3>
+        <p>
+          We are a group of student developers under the team name <strong>JAVACHIP.EXE</strong>, working on this capstone project to create an innovative educational game.
+        </p>
+        <p><strong>Members:</strong></p>
+        <ul class="about-list">
+          <li>CABIA, Nash Daniel S. (Programmer)</li>
+          <li>DE GUZMAN, Grazelle P. (Documenter / Technical Writer)</li>
+          <li>ESTABILLO, Yuan Maru A. (Project Manager)</li>
+          <li>GIPAYA, Jehu S. (System Designer)</li>
+          <li>SALVADOR, Qjuin Dominic (System Analyst)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="characters" class="characters section-bg bg4">
+  <div class="overlay"></div>
+  <div class="content">
+
+    <h2>Main Characters</h2>
+
+    <div class="character-layout">
+
+      <!-- LEFT SIDE (Slider Area) -->
+      <div class="slider-area">
+
+        <button class="prev">&#10094;</button>
+
+        <div class="character-card">
+          <img src="assets/Characters/student1.png" class="character active">
+          <img src="assets/Characters/student2.png" class="character">
+          <img src="assets/Characters/student3.png" class="character">
+        </div>
+
+        <button class="next">&#10095;</button>
+
+      </div>
+
+      <!-- RIGHT SIDE (Description Panel) -->
+      <div class="character-info">
+        <h3 id="char-name"></h3>
+        <p id="char-desc">
+          
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+  <!-- Background Showcase -->
+  <section class="gallery">
+    <h2>World Preview</h2>
+    <div class="gallery-grid">
+      <img src="assets/Background/g1.png">
+      <img src="assets/Background/g2.jpg">
+      <img src="assets/Background/g3.jpg">
+      <img src="assets/Background/g4.jpg">
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 JavaChip.exe</p>
+  </footer>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script src="JS/firebase-config.js"></script>
+<script src="JS/firebase-service.js"></script>
+<script src="JS/app-core.js"></script>
+<script src="JS/script.js"></script>
+</body>
+</html>

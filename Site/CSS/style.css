@@ -28,7 +28,7 @@ body {
   /* fallback assets */
   --room-background-fallback: url("../assets/Background/background.jpg");
   --room-cloud-fallback: url("../assets/Parallax/Cloud2.png");
-  --room-school-fallback: url("../assets/Parallax/school.png");
+  --room-school-fallback: url("../assets/Parallax/School.png");
 
   /* theme */
   --gold-main: #d4af37;

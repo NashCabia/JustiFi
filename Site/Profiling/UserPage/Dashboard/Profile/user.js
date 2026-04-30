@@ -6,6 +6,23 @@ function goToBadges() {
   window.location.href = "../Badges/badge.html";
 }
 
+function showFloatingPanel(message, type = "success") {
+  const panel = document.getElementById("floatingPanel");
+  const text = document.getElementById("floatingPanelMessage");
+
+  if (!panel || !text) {
+    showFloatingPanel(message);
+    return;
+  }
+
+  text.textContent = message;
+  panel.className = `floating-panel ${type}`;
+
+  setTimeout(() => {
+    panel.classList.add("hidden");
+  }, 3000);
+}
+
 async function logoutUser() {
   try {
     if (window.JustifiFirebase && window.JustifiFirebase.isConfigured()) {
@@ -15,7 +32,7 @@ async function logoutUser() {
     window.location.href = "../../../../Login/auth.html?logout=1";
   } catch (error) {
     console.error("Logout failed:", error);
-    alert("Logout failed. Please try again.");
+    showFloatingPanel("Logout failed. Please try again.", "error");
   }
 }
 
@@ -139,12 +156,12 @@ async function saveProfile() {
   const fb = window.JustifiFirebase;
 
   if (!fb || !fb.isConfigured || !fb.isConfigured()) {
-    alert("Firebase is not configured yet.");
+    showFloatingPanel("Firebase is not configured yet.", "error");
     return;
   }
 
   if (!currentUser) {
-    alert("No logged-in user found.");
+    showFloatingPanel("No logged-in user found.", "error");
     return;
   }
 
@@ -160,7 +177,7 @@ async function saveProfile() {
   const school = getValue("school");
 
   if (!firstName || !lastName) {
-    alert("First name and last name are required.");
+    showFloatingPanel("First name and last name are required.", "error");
     return;
   }
 
@@ -200,10 +217,10 @@ async function saveProfile() {
     });
 
     renderProfile(currentUser);
-    alert("Profile updated successfully.");
+    showFloatingPanel("Profile updated successfully.");
   } catch (error) {
     console.error("Failed to save profile:", error);
-    alert("Failed to save profile.");
+    showFloatingPanel("Failed to save profile.", "error");
   } finally {
     saveBtn.disabled = false;
     saveBtn.textContent = "Save Changes";
@@ -216,7 +233,7 @@ async function handleProfileImageChange(event) {
   if (!file) return;
 
   if (!file.type.startsWith("image/")) {
-    alert("Please select an image file only.");
+    showFloatingPanel("Please select an image file only.", "error");
     event.target.value = "";
     return;
   }
@@ -232,7 +249,7 @@ async function handleProfileImageChange(event) {
     renderProfile(currentUser);
   } catch (error) {
     console.error("Failed to update profile image:", error);
-    alert("Failed to update profile image.");
+    showFloatingPanel("Failed to update profile image.", "error");
   } finally {
     event.target.value = "";
   }

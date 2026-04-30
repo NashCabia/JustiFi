@@ -165,21 +165,21 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   };
 
   if (!payload.firstName || !payload.lastName || !payload.email || !payload.password) {
-    alert("Please complete the required fields.");
+    showFloatingPanel("Please complete the required fields.");
     return;
   }
 
   if (payload.password.length < 6) {
-    alert("Password must be at least 6 characters.");
+    showFloatingPanel("Password must be at least 6 characters.", "error");
     return;
   }
 
   try {
     await registerWithSelectedProvider(payload);
-alert("Verification email sent. Please verify your email first, then log in.");
-panel.classList.remove("show-register");
+    showFloatingPanel("Verification email sent. Please verify your email first, then log in.");
+    panel.classList.remove("show-register");
   } catch (error) {
-    alert(error.message);
+    showFloatingPanel(error.message);
   }
 });
 
@@ -189,7 +189,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
   const remember = document.getElementById("rememberMe").checked;
 
   if (!email || !password) {
-    alert("Please enter your email and password.");
+    showFloatingPanel("Please enter your email and password.");
     return;
   }
 
@@ -205,7 +205,7 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
     window.location.href = dashboardPathFor(user);
   } catch (error) {
-    alert(error.message);
+    showFloatingPanel(error.message);
   }
 });
 
@@ -226,3 +226,20 @@ function setupNotifications() {
 }
 
 document.addEventListener("DOMContentLoaded", setupNotifications);
+
+function showFloatingPanel(message, type = "success") {
+  const panel = document.getElementById("floatingPanel");
+  const text = document.getElementById("floatingPanelMessage");
+
+  if (!panel || !text) {
+    showFloatingPanel(message);
+    return;
+  }
+
+  text.textContent = message;
+  panel.className = `floating-panel ${type}`;
+
+  setTimeout(() => {
+    panel.classList.add("hidden");
+  }, 3000);
+}

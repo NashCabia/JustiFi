@@ -18,7 +18,7 @@ async function logoutUser() {
     window.location.href = "../../../../Login/auth.html?logout=1";
   } catch (error) {
     console.error("Logout failed:", error);
-    alert("Logout failed. Please try again.");
+    showFloatingPanel("Logout failed. Please try again.");
   }
 }
 

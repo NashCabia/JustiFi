@@ -18,7 +18,7 @@ async function logoutUser() {
     window.location.href = "../../../Login/auth.html?logout=1";
   } catch (error) {
     console.error("Logout failed:", error);
-    alert("Logout failed. Please try again.");
+    showFloatingPanel("Logout failed. Please try again.");
   }
 }
 
@@ -231,4 +231,21 @@ function setupMenu() {
 function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
+}
+
+function showFloatingPanel(message, type = "success") {
+  const panel = document.getElementById("floatingPanel");
+  const text = document.getElementById("floatingPanelMessage");
+
+  if (!panel || !text) {
+    showFloatingPanel(message);
+    return;
+  }
+
+  text.textContent = message;
+  panel.className = `floating-panel ${type}`;
+
+  setTimeout(() => {
+    panel.classList.add("hidden");
+  }, 3000);
 }

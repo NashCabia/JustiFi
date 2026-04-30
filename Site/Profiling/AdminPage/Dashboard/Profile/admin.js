@@ -18,7 +18,7 @@ async function logoutUser() {
     window.location.href = "../../../../Login/auth.html?logout=1";
   } catch (error) {
     console.error("Logout failed:", error);
-    alert("Logout failed. Please try again.");
+    showFloatingPanel("Logout failed. Please try again.");
   }
 }
 
@@ -143,12 +143,12 @@ async function saveProfile() {
   const fb = window.JustifiFirebase;
 
   if (!fb || !fb.isConfigured || !fb.isConfigured()) {
-    alert("Firebase is not configured yet.");
+    showFloatingPanel("Firebase is not configured yet.");
     return;
   }
 
   if (!currentUser) {
-    alert("No logged-in user found.");
+    showFloatingPanel("No logged-in user found.");
     return;
   }
 
@@ -161,7 +161,7 @@ async function saveProfile() {
   const school = getValue("school");
 
   if (!firstName || !lastName) {
-    alert("First name and last name are required.");
+    showFloatingPanel("First name and last name are required.");
     return;
   }
 
@@ -192,10 +192,9 @@ async function saveProfile() {
     });
 
     renderAdminProfile(currentUser);
-    alert("Profile updated successfully.");
-  } catch (error) {
+showFloatingPanel("Profile updated successfully.", "success");  } catch (error) {
     console.error("Failed to save admin profile:", error);
-    alert("Failed to save profile.");
+    showFloatingPanel("Failed to save profile.", "error");
   } finally {
     if (saveBtn) {
       saveBtn.disabled = false;
@@ -353,7 +352,7 @@ async function handleProfileImageChange(event) {
   if (!file) return;
 
   if (!file.type.startsWith("image/")) {
-    alert("Please select an image file only.");
+    showFloatingPanel("Please select an image file only.");
     event.target.value = "";
     return;
   }
@@ -369,7 +368,7 @@ async function handleProfileImageChange(event) {
     renderAdminProfile(currentUser);
   } catch (error) {
     console.error("Failed to update profile image:", error);
-    alert("Failed to update profile image.");
+    showFloatingPanel("Failed to update profile image.", "error");
   } finally {
     event.target.value = "";
   }
@@ -445,20 +444,19 @@ function setupMenu() {
   if (overlay) overlay.addEventListener("click", closeMenu);
 }
 
-function setupNotifications() {
-  const toggle = document.getElementById("notifToggle");
-  const panel = document.getElementById("notifPanel");
-  const close = document.getElementById("notifClose");
+function showFloatingPanel(message, type = "success") {
+  const panel = document.getElementById("floatingPanel");
+  const text = document.getElementById("floatingPanelMessage");
 
-  if (!toggle || !panel || !close) return;
+  if (!panel || !text) {
+    showFloatingPanel(message);
+    return;
+  }
 
-  toggle.addEventListener("click", () => {
-    panel.classList.toggle("hidden");
-  });
+  text.textContent = message;
+  panel.className = `floating-panel ${type}`;
 
-  close.addEventListener("click", () => {
+  setTimeout(() => {
     panel.classList.add("hidden");
-  });
+  }, 3000);
 }
-
-document.addEventListener("DOMContentLoaded", setupNotifications);

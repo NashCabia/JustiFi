@@ -356,3 +356,42 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.floating-panel {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  max-width: 340px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #1c1132;
+  font-weight: 600;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.22);
+  z-index: 9999;
+  animation: slideIn 0.25s ease;
+}
+
+.floating-panel.hidden {
+  display: none;
+}
+
+.floating-panel.success {
+  border-left: 6px solid #35b36b;
+}
+
+.floating-panel.error {
+  border-left: 6px solid #d94c4c;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

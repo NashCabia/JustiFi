@@ -146,7 +146,17 @@ function renderProfile(user) {
   setText("updatedAt", formatValue(user.updatedAt));
 
   const profileImage = document.getElementById("profileImage");
-  if (profileImage && user.avatarDataUrl) {
+  const DEFAULT_IMAGE = "../../../AdminPage/Dashboard/Profile/Images/default-avatar.webp";
+
+  if (profileImage) {
+    profileImage.src = DEFAULT_IMAGE;
+  }
+
+  if (profileImage && user.profileImage?.localPath) {
+    profileImage.src = user.profileImage.localPath;
+  }
+
+  if (profileImage && !user.profileImage?.localPath && user.avatarDataUrl) {
     profileImage.src = user.avatarDataUrl;
   }
 }
@@ -197,8 +207,10 @@ async function saveProfile() {
     section &&
     school;
 
-  saveBtn.disabled = true;
-  saveBtn.textContent = "Saving...";
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Saving...";
+  }
 
   try {
     currentUser = await fb.updateCurrentUserProfile({
@@ -222,8 +234,10 @@ async function saveProfile() {
     console.error("Failed to save profile:", error);
     showFloatingPanel("Failed to save profile.", "error");
   } finally {
-    saveBtn.disabled = false;
-    saveBtn.textContent = "Save Changes";
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Save Changes";
+    }
   }
 }
 

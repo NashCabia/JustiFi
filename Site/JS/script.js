@@ -1,62 +1,155 @@
 // ===============================
-// CHARACTER SLIDER SYSTEM
+// CHARACTER CARD DECK (DRAG TO SWITCH)
 // ===============================
 
-const characters = document.querySelectorAll(".character");
-const nextBtn = document.querySelector(".next");
-const prevBtn = document.querySelector(".prev");
-
-const charName = document.getElementById("char-name");
-const charDesc = document.getElementById("char-desc");
-
-let index = 0;
-
-// Placeholder character data (consistent)
-const characterData = [
-  {
-    name: "Student Alpha",
-    desc: "A disciplined academy prodigy known for tactical precision and calm leadership under pressure. Specializes in strategic combat planning."
-  },
-  {
-    name: "Student Beta",
-    desc: "Energetic and fearless, this student excels in fast-paced encounters. Known for adaptability and relentless offensive skills."
-  },
-  {
-    name: "Student Gamma",
-    desc: "Quiet and analytical, mastering advanced techniques through intelligence and patience. A powerful force when fully unleashed."
-  }
-];
-
-function showCharacter(i) {
-  // Change image
-  characters.forEach(char => char.classList.remove("active"));
-  characters[i].classList.add("active");
-
+(function initCharacterDeck() {
+  const deck = document.querySelector(".card-stack");
   const info = document.querySelector(".character-info");
+  const charName = document.getElementById("char-name");
+  const charDesc = document.getElementById("char-desc");
 
-  // Smooth text transition
-  info.classList.add("fade");
+  if (!deck) return;
 
-  setTimeout(() => {
-    charName.textContent = characterData[i].name;
-    charDesc.textContent = characterData[i].desc;
-    info.classList.remove("fade");
-  }, 200);
-}
+  // Placeholder character data (consistent)
+  const characterData = [
+    {
+      name: "Student Alpha",
+      desc: "A disciplined academy prodigy known for tactical precision and calm leadership under pressure. Specializes in strategic combat planning."
+    },
+    {
+      name: "Student Beta",
+      desc: "Energetic and fearless, this student excels in fast-paced encounters. Known for adaptability and relentless offensive skills."
+    },
+    {
+      name: "Student Gamma",
+      desc: "Quiet and analytical, mastering advanced techniques through intelligence and patience. A powerful force when fully unleashed."
+    }
+  ];
 
-// Button controls
-nextBtn.addEventListener("click", () => {
-  index = (index + 1) % characters.length;
+  const canUpdateInfo = !!(info && charName && charDesc);
+  let index = 0;
+
+  function showCharacter(i) {
+    if (!canUpdateInfo) return;
+
+    info.classList.add("fade");
+
+    window.setTimeout(() => {
+      charName.textContent = characterData[i].name;
+      charDesc.textContent = characterData[i].desc;
+      info.classList.remove("fade");
+    }, 200);
+  }
+
+  function layoutCards() {
+    const cards = Array.from(deck.querySelectorAll(".swipe-card"));
+    cards.forEach((card, i) => {
+      const offsetX = i * 26;
+      const offsetY = i * 18;
+      const scale = 1 - i * 0.04;
+      const tilt = i * -2;
+
+      card.style.zIndex = String(10 - i);
+      card.style.opacity = i < 3 ? "1" : "0";
+      card.style.transform = `translate(${offsetX}px, ${offsetY}px) rotate(${tilt}deg) scale(${scale})`;
+      card.setAttribute("aria-hidden", i === 0 ? "false" : "true");
+    });
+  }
+
+  const SWIPE_THRESHOLD_PX = 90;
+  let activeCard = null;
+  let startX = 0;
+  let startY = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let isDragging = false;
+
+  function onPointerDown(e) {
+    const topCard = deck.querySelector(".swipe-card");
+    if (!topCard) return;
+    if (e.target && !topCard.contains(e.target)) return;
+
+    activeCard = topCard;
+    startX = e.clientX;
+    startY = e.clientY;
+    currentX = 0;
+    currentY = 0;
+    isDragging = true;
+
+    activeCard.classList.add("dragging");
+    try {
+      activeCard.setPointerCapture?.(e.pointerId);
+    } catch {
+      // Ignore capture errors (can happen in some environments)
+    }
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging || !activeCard) return;
+
+    currentX = e.clientX - startX;
+    currentY = e.clientY - startY;
+
+    const rotate = currentX / 14;
+    activeCard.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rotate}deg)`;
+  }
+
+  function finishSwipe() {
+    if (!activeCard) return;
+
+    activeCard.classList.remove("dragging");
+
+    // Move the swiped card to the back of the stack
+    deck.appendChild(activeCard);
+    activeCard = null;
+    isDragging = false;
+
+    if (canUpdateInfo) {
+      index = (index + 1) % characterData.length;
+      showCharacter(index);
+    }
+    layoutCards();
+  }
+
+  function cancelSwipe() {
+    if (!activeCard) return;
+    activeCard.classList.remove("dragging");
+    activeCard = null;
+    isDragging = false;
+    layoutCards();
+  }
+
+  function onPointerUp() {
+    if (!isDragging || !activeCard) return;
+
+    if (Math.abs(currentX) >= SWIPE_THRESHOLD_PX) {
+      const direction = currentX < 0 ? -1 : 1;
+      const flyX = direction * (deck.clientWidth + 240);
+      const flyY = currentY * 0.4;
+      const rotate = direction * 20;
+
+      activeCard.classList.remove("dragging");
+      activeCard.style.transform = `translate(${flyX}px, ${flyY}px) rotate(${rotate}deg)`;
+
+      window.setTimeout(() => {
+        finishSwipe();
+      }, 220);
+      return;
+    }
+
+    cancelSwipe();
+  }
+
+  // Pointer events are attached to the deck, but only the top card is draggable.
+  deck.addEventListener("pointerdown", onPointerDown);
+  window.addEventListener("pointermove", onPointerMove);
+  window.addEventListener("pointerup", onPointerUp);
+  window.addEventListener("pointercancel", cancelSwipe);
+
+  // Initialize
   showCharacter(index);
-});
-
-prevBtn.addEventListener("click", () => {
-  index = (index - 1 + characters.length) % characters.length;
-  showCharacter(index);
-});
-
-// Initialize first character properly
-showCharacter(index);
+  layoutCards();
+})();
 
 
 // ===============================

@@ -11,7 +11,7 @@
 
   <nav class="navbar hide">
     <a class="logo" href="#home" aria-label="JustiFi Home">
-      <img src="assets/Title/JustiFiLogo.png" alt="JustiFi" />
+      <img src="assets/Icons/Coin3.png" alt="JustiFi coin" />
     </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
@@ -105,9 +105,9 @@
 <section id="about" class="section-bg bg3">
   <div class="overlay"></div>
   <div class="content">
-    <h2>About The Game</h2>
     <div class="about-panels">
       <div class="about-panel">
+        <h2>About The Game</h2>
         <h3>Overview</h3>
         <p>
           JustiFi is an interactive, choice-driven visual novel designed to improve legal literacy among senior high school students. The game places players in real-life scenarios involving youth protection, gender safety, cyber safety, and police encounters, allowing them to make decisions and experience the consequences of their actions.
@@ -159,11 +159,11 @@
         </p>
         <p><strong>Members:</strong></p>
         <ul class="about-list">
-          <li>CABIA, Nash Daniel S. (Programmer)</li>
+          <li>CABIA, Nash Daniel S. (Web-developer)</li>
           <li>DE GUZMAN, Grazelle P. (Documenter / Technical Writer)</li>
           <li>ESTABILLO, Yuan Maru A. (Project Manager)</li>
           <li>GIPAYA, Jehu S. (System Designer)</li>
-          <li>SALVADOR, Qjuin Dominic (System Analyst)</li>
+          <li>SALVADOR, Qjuin Dominic (System Analyst/Game Developer)</li>
         </ul>
       </div>
     </div>
@@ -174,31 +174,25 @@
   <div class="overlay"></div>
   <div class="content">
 
-    <h2>Main Characters</h2>
+    <h2>Characters</h2>
 
     <div class="character-layout">
 
       <!-- LEFT SIDE (Slider Area) -->
       <div class="slider-area">
 
-        <button class="prev">&#10094;</button>
-
-        <div class="character-card">
-          <img src="assets/Characters/student1.png" class="character active">
-          <img src="assets/Characters/student2.png" class="character">
-          <img src="assets/Characters/student3.png" class="character">
+        <div class="card-stack" aria-label="Character cards">
+          <div class="swipe-card" data-card="0">
+            <img src="assets/Characters/character.png" alt="Character card" />
+          </div>
+          <div class="swipe-card" data-card="1" aria-hidden="true">
+            <img src="assets/Background/background.png" alt="" />
+          </div>
+          <div class="swipe-card" data-card="2" aria-hidden="true">
+            <img src="assets/Characters/character.png" alt="" />
+          </div>
         </div>
 
-        <button class="next">&#10095;</button>
-
-      </div>
-
-      <!-- RIGHT SIDE (Description Panel) -->
-      <div class="character-info">
-        <h3 id="char-name"></h3>
-        <p id="char-desc">
-          
-        </p>
       </div>
 
     </div>
@@ -210,10 +204,18 @@
   <section class="gallery">
     <h2>World Preview</h2>
     <div class="gallery-grid">
-      <img src="assets/Background/g1.png">
-      <img src="assets/Background/g2.jpg">
-      <img src="assets/Background/g3.jpg">
-      <img src="assets/Background/g4.jpg">
+      <div class="gallery-item">
+        <img src="assets/Background/g1.png" alt="World preview 1" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Background/g2.jpg" alt="World preview 2" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Background/g3.jpg" alt="World preview 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="assets/Background/g4.jpg" alt="World preview 4" />
+      </div>
     </div>
   </section>
 

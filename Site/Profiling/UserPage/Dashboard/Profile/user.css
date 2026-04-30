@@ -169,8 +169,15 @@ body {
   width: 130px;
   height: 130px;
   border-radius: 20px;
+  display: block;
   object-fit: cover;
-  margin-bottom: 14px;
+  margin: 0;
+}
+
+.profile-image-wrap {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto 14px;
 }
 
 .profile-card h2 {
@@ -292,20 +299,28 @@ body {
 }
 
 .image-upload-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--border);
-  background: #ffffff;
+  border: none;
+  background: transparent;
+  padding: 0;
   color: var(--text);
   cursor: pointer;
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  box-shadow: var(--shadow);
+}
+
+.image-upload-btn:focus {
+  outline: none;
+}
+
+.image-upload-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
 }
 
 .image-upload-input {

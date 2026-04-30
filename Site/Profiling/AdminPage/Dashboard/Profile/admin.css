@@ -172,6 +172,12 @@ body {
   border-radius: 20px;
   display: block;
   object-fit: cover;
+  margin: 0;
+}
+
+.profile-image-wrap {
+  position: relative;
+  display: inline-block;
   margin: 0 auto 14px;
 }
 
@@ -277,6 +283,29 @@ body {
   color: white;
   font-weight: 600;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-btn__icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .profile-input {
@@ -333,18 +362,30 @@ body {
 }
 
 .image-upload-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,0.9);
+  border: none;
+  background: transparent;
+  padding: 0;
   color: var(--text);
   cursor: pointer;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 8px;
+}
+
+.image-upload-btn:focus {
+  outline: none;
+}
+
+.image-upload-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
 }
 
 .image-upload-input {

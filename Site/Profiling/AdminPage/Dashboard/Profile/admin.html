@@ -39,8 +39,12 @@
 
   <main class="profile-shell">
     <section class="profile-card">
-      <img id="profileImage" class="profile-img" src="Images/default-avatar.webp" alt="Profile photo" />
-      <label for="profileImageInput" class="image-upload-btn">Change Photo</label>
+      <div class="profile-image-wrap">
+        <img id="profileImage" class="profile-img" src="Images/default-avatar.webp" alt="Profile photo" />
+        <label for="profileImageInput" class="image-upload-btn" aria-label="Change photo">
+          <img class="image-upload-icon" src="../../../../assets/Icons/edit.png" alt="" aria-hidden="true" />
+        </label>
+      </div>
       <input id="profileImageInput" class="image-upload-input" type="file" accept="image/*" />
       <h2 id="profileDisplayName">Loading...</h2>
       <p id="userRole">Admin</p>
@@ -59,7 +63,7 @@
         </div>
 
         <div class="info-row">
-          <label for="middleName">Middle Name</label>
+          <label for="middleName">Middle Name (optional)</label>
           <input id="middleName" class="profile-input" type="text" />
         </div>
 

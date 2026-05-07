@@ -142,7 +142,7 @@ body {
 
   .floating-nav {
     display: flex !important;
-    bottom: 0 !important;
+    bottom: 16px !important;
     opacity: 1 !important;
   }
 }

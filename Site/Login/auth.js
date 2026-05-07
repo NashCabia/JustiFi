@@ -7,6 +7,119 @@ const REMEMBER_EMAIL_KEY = "justifi_remember_email";
 const REMEMBER_PASSWORD_KEY = "justifi_remember_password";
 const FORCE_LOGOUT_KEY = "justifi_force_logout";
 
+// Forgot Password Modal Setup
+const forgotPasswordModal = document.getElementById("forgotPasswordModal");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+const forgotModalClose = document.querySelector(".forgot-modal-close");
+const sendResetBtn = document.getElementById("sendResetBtn");
+const forgotModalBackLink = document.querySelector(".forgot-modal-back a");
+
+function openForgotPasswordModal() {
+  if (forgotPasswordModal) {
+    forgotPasswordModal.classList.remove("hidden");
+    document.getElementById("forgotEmail").focus();
+  }
+}
+
+function closeForgotPasswordModal() {
+  if (forgotPasswordModal) {
+    forgotPasswordModal.classList.add("hidden");
+    document.getElementById("forgotEmail").value = "";
+  }
+}
+
+if (forgotPasswordLink) {
+  forgotPasswordLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    openForgotPasswordModal();
+  });
+}
+
+if (forgotModalClose) {
+  forgotModalClose.addEventListener("click", closeForgotPasswordModal);
+}
+
+if (forgotModalBackLink) {
+  forgotModalBackLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeForgotPasswordModal();
+  });
+}
+
+// Close modal when clicking overlay
+if (forgotPasswordModal) {
+  forgotPasswordModal.addEventListener("click", (e) => {
+    if (e.target === forgotPasswordModal.querySelector(".forgot-modal-overlay")) {
+      closeForgotPasswordModal();
+    }
+  });
+}
+
+// Handle password reset submission
+if (sendResetBtn) {
+  sendResetBtn.addEventListener("click", async () => {
+    const email = document.getElementById("forgotEmail").value.trim();
+    
+    if (!email) {
+      showFloatingMessage("Please enter your email address");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      showFloatingMessage("Please enter a valid email address");
+      return;
+    }
+
+    try {
+      sendResetBtn.disabled = true;
+      sendResetBtn.textContent = "Sending...";
+
+      // Check if user exists in Firebase or local store
+      let userExists = false;
+      
+      if (fb && fb.isConfigured && fb.isConfigured()) {
+        // Firebase password reset
+        await firebase.auth().sendPasswordResetEmail(email);
+        userExists = true;
+      } else if (store) {
+        // Local store check
+        const user = store.getUserByEmail && await store.getUserByEmail(email);
+        if (user) {
+          userExists = true;
+          // In a real app, you'd send an email here
+          // For demo, just show success message
+          showFloatingMessage("Password reset link would be sent to: " + email);
+        }
+      }
+
+      if (userExists) {
+        showFloatingMessage("Reset email sent! Check your inbox.");
+        closeForgotPasswordModal();
+      } else {
+        showFloatingMessage("Email not found in our system");
+      }
+    } catch (error) {
+      console.error("Reset error:", error);
+      showFloatingMessage("Error sending reset email: " + error.message);
+    } finally {
+      sendResetBtn.disabled = false;
+      sendResetBtn.textContent = "Send Reset Link";
+    }
+  });
+}
+
+function showFloatingMessage(message) {
+  const panel = document.getElementById("floatingPanel");
+  const msgSpan = document.getElementById("floatingPanelMessage");
+  if (panel && msgSpan) {
+    msgSpan.textContent = message;
+    panel.classList.remove("hidden");
+    setTimeout(() => {
+      panel.classList.add("hidden");
+    }, 3000);
+  }
+}
+
 document.getElementById("showRegister").onclick = () =>
   panel.classList.add("show-register");
 
@@ -159,7 +272,6 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
   const payload = {
     firstName: document.getElementById("regFirstName").value.trim(),
     lastName: document.getElementById("regLastName").value.trim(),
-    middleName: document.getElementById("regMiddleName").value.trim(),
     email: document.getElementById("regEmail").value.trim(),
     password: document.getElementById("regPassword").value
   };

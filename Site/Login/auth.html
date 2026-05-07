@@ -18,15 +18,18 @@
       <input id="loginEmail" type="email" placeholder="Email">
       <input id="loginPassword" type="password" placeholder="Password">
 
-      <label class="remember-row">
-        <input id="rememberMe" type="checkbox">
-        Remember Me
-      </label>
+      <div class="remember-forgot-row">
+        <label class="remember-row">
+          <input id="rememberMe" type="checkbox">
+          Remember Me
+        </label>
+        <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
+      </div>
 
       <button id="loginBtn">Login</button>
       <p>Don't have an account?</p>
       <button class="switch" id="showRegister">Register</button>
-      <a class="back" href="../index.html">← Back to Site</a>
+      <a class="back" href="../index.html"><img src="../assets/Icons/back-button.png" alt="Back to Site" /></a>
     </div>
 
     <div class="info-area">
@@ -39,15 +42,27 @@
         <input id="regLastName" type="text" placeholder="Last name">
         <input id="regFirstName" type="text" placeholder="First name">
       </div>
-      <input id="regMiddleName" type="text" placeholder="Middle name (optional)">
       <input id="regEmail" type="email" placeholder="Email">
       <input id="regPassword" type="password" placeholder="Password">
+
       <button id="registerBtn">Register</button>
       <p>Already have an account?</p>
       <button class="switch" id="showLogin">Login</button>
-      <a class="back" href="../index.html">← Back to Site</a>
+      <a class="back" href="../index.html"><img src="../assets/Icons/back-button.png" alt="Back to Site" /></a>
     </div>
   </div>
+</div>
+
+<div id="forgotPasswordModal" class="forgot-modal hidden">
+  <div class="forgot-modal-content">
+    <button class="forgot-modal-close">&times;</button>
+    <h2>Reset Password</h2>
+    <p>Enter your email address and we'll send you a link to reset your password.</p>
+    <input id="forgotEmail" type="email" placeholder="Enter your email">
+    <button id="sendResetBtn">Send Reset Link</button>
+    <p class="forgot-modal-back"><a href="#">Back to Login</a></p>
+  </div>
+  <div class="forgot-modal-overlay"></div>
 </div>
 
 <div id="floatingPanel" class="floating-panel hidden">
@@ -61,5 +76,6 @@
 <script src="../JS/firebase-service.js"></script>
 <script src="../JS/app-core.js"></script>
 <script src="auth.js"></script>
+  <script src="../JS/sticky-pin.js"></script>
 </body>
 </html>

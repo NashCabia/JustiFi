@@ -153,6 +153,77 @@
 
 
 // ===============================
+// WORLD PREVIEW CARDS (MAXIMIZE + FLIP)
+// ===============================
+
+(function initWorldPreviewCards() {
+  const cards = Array.from(document.querySelectorAll(".gallery-item"));
+  const overlay = document.querySelector(".gallery-overlay");
+
+  if (!cards.length || !overlay) return;
+
+  let expandedCard = null;
+
+  function closeExpandedCard() {
+    if (!expandedCard) return;
+
+    expandedCard.classList.remove("is-expanded");
+    expandedCard.setAttribute("aria-expanded", "false");
+    expandedCard = null;
+
+    overlay.classList.remove("show");
+    document.body.classList.remove("world-preview-open");
+  }
+
+  function expandCard(card) {
+    if (expandedCard === card) {
+      closeExpandedCard();
+      return;
+    }
+
+    if (expandedCard) {
+      expandedCard.classList.remove("is-expanded");
+      expandedCard.setAttribute("aria-expanded", "false");
+    }
+
+    expandedCard = card;
+    expandedCard.classList.add("is-expanded");
+    expandedCard.setAttribute("aria-expanded", "true");
+
+    overlay.classList.add("show");
+    document.body.classList.add("world-preview-open");
+  }
+
+  cards.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      event.stopPropagation();
+      expandCard(card);
+    });
+
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      expandCard(card);
+    });
+  });
+
+  overlay.addEventListener("click", closeExpandedCard);
+
+  document.addEventListener("click", (event) => {
+    if (!expandedCard) return;
+    if (expandedCard.contains(event.target)) return;
+    closeExpandedCard();
+  });
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeExpandedCard();
+    }
+  });
+})();
+
+
+// ===============================
 // EXPLORE BUTTON SCROLL
 // ===============================
 

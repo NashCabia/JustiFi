@@ -213,7 +213,16 @@ body {
 
   padding: 12px 20px;
 
-  background: #161220;
+  background: linear-gradient(
+    90deg,
+    rgb(from var(--dark-main) r g b / var(--navbar-alpha)) 0%,
+    rgb(from var(--gold-dark) r g b / var(--navbar-alpha)) 20%,
+    rgb(from var(--gold-bright) r g b / var(--navbar-alpha)) 50%,
+    rgb(from var(--gold-dark) r g b / var(--navbar-alpha)) 80%,
+    rgb(from var(--dark-main) r g b / var(--navbar-alpha)) 100%
+  );
+
+  background-size: 100% 100%;
   border: 2px solid rgba(255, 255, 255, 0.12);
   border-radius: 12px;
 
@@ -244,8 +253,9 @@ body {
   align-items: center;
   justify-content: center;
   width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  height: 50px;
+  border-radius: 80%;
+  border: 2px solid #161220;
   background: rgba(255, 255, 255, 0.08);
   transition: all 0.3s ease;
   flex-shrink: 0;

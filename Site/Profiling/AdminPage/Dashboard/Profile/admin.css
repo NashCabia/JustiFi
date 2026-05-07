@@ -26,6 +26,9 @@ body {
   background:
     radial-gradient(circle at top left, rgba(60, 51, 118, 0.10), transparent 35%),
     linear-gradient(180deg, var(--bg-2), var(--bg-1));
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .topbar {
@@ -152,6 +155,8 @@ body {
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 14px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .profile-card,
@@ -176,6 +181,7 @@ body {
   border-radius: 18px;
   display: block;
   object-fit: cover;
+  object-position: center;
   margin: 0;
   border: 3px solid rgba(106,79,245,0.15);
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
@@ -348,6 +354,8 @@ body {
   gap: 10px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(60,51,118,0.2);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .edit-btn:hover {
@@ -428,20 +436,100 @@ body {
 @media (max-width: 900px) {
   .profile-shell {
     grid-template-columns: 1fr;
+    padding: 12px 16px 20px;
   }
 
   .info-grid,
   .progress-summary {
     grid-template-columns: 1fr;
+    gap: 16px 20px;
   }
 
   .welcome {
     display: none;
   }
+}
+
+@media (max-width: 700px) {
+  body {
+    background-attachment: scroll;
+  }
 
   .profile-shell {
-    padding-left: 14px;
-    padding-right: 14px;
+    padding: 10px 12px 16px;
+    gap: 10px;
+  }
+
+  .profile-card {
+    padding: 14px;
+  }
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 14px;
+  }
+
+  .profile-image-wrap {
+    margin: 0 auto 12px;
+  }
+
+  .image-upload-btn {
+    width: 34px;
+    height: 34px;
+    padding: 6px;
+  }
+
+  .image-upload-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .profile-card h2 {
+    margin: 6px 0 2px;
+    font-size: 16px;
+  }
+
+  .profile-card p {
+    font-size: 13px;
+  }
+
+  .section-head h3 {
+    font-size: 14px;
+  }
+
+  .section-head::before {
+    height: 18px;
+  }
+
+  .info-row {
+    gap: 4px;
+    padding: 8px 0;
+  }
+
+  .info-row label {
+    font-size: 11px;
+  }
+
+  .profile-input {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+  }
+
+  .edit-btn {
+    margin-top: 14px;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .info-card {
+    padding: 14px;
+  }
+
+  .info-grid {
+    gap: 14px 16px;
   }
 }
 

@@ -208,42 +208,29 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 18px;
 
-  padding: 16px 24px;
+  padding: 14px 28px;
 
-  background: transparent;
-  border: none;
-
-  border-radius: 0;
-  box-shadow: none;
+  background: #161220;
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
 
   opacity: 0;
   z-index: 999;
   max-width: calc(100vw - 40px);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 
   transition:
     bottom var(--ui-speed) ease,
     opacity var(--ui-speed) ease;
 }
 
-.floating-nav::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  z-index: -1;
-  width: 130%;
-  transform: translateX(-50%);
-  pointer-events: none;
-  border-radius: 0;
-  background: url("../assets/Background/floating_nav.png") center / 100% 100% no-repeat;
-}
-
 /* visible state */
 .floating-nav.show {
-  bottom: 0;
+  bottom: 16px;
   opacity: 1;
 }
 

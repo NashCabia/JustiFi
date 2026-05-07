@@ -1366,6 +1366,29 @@ body.world-preview-open {
   text-align: center;
 }
 
+/* Mobile-friendly background sizing: make background height-driven and disable fixed attachment
+   so images don't zoom/blur on small screens. Keeps min-height:100vh so the image covers
+   viewport height; image will be sized to match height (auto width) and centered at top. */
+@media (max-width: 768px) {
+  .section-bg {
+    background-attachment: scroll !important;
+    background-size: auto 100% !important;
+    background-position: center top !important;
+    -webkit-background-size: auto 100% !important;
+    -moz-background-size: auto 100% !important;
+  }
+
+  /* specifically ensure hero and announcement backgrounds follow the same rule */
+  .hero,
+  .announcement.section-bg,
+  #about.section-bg,
+  .characters.section-bg {
+    background-attachment: scroll !important;
+    background-size: auto 100% !important;
+    background-position: center top !important;
+  }
+}
+
 /* ABOUT: long-form text reads better top-aligned */
 #about.section-bg {
   align-items: flex-start;

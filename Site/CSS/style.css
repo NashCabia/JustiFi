@@ -245,8 +245,9 @@ body {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border-radius: 999px;
-  transition: 0.3s ease;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
 }
 
 .floating-nav a img {
@@ -258,7 +259,7 @@ body {
 }
 
 .floating-nav a:hover {
-  color: var(--gold-bright);
+  background: rgba(106, 79, 245, 0.2);
   transform: scale(1.08);
 }
 

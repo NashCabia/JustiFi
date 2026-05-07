@@ -170,17 +170,19 @@ body {
   color: var(--text-light);
   font-weight: 600;
   letter-spacing: 1px;
-  display: inline-block;
-  transition: 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: var(--hover-color);
-  transform: translateY(-2px);
-}
-
-.nav-user {
-  justify-self: end;
+    /* match topbar gradient and provide a subtle border + inner borderline */
+    background: linear-gradient(
+      90deg,
+      rgb(from var(--dark-main) r g b / 0.92) 0%,
+      rgb(from var(--gold-dark) r g b / 0.92) 20%,
+      rgb(from var(--gold-bright) r g b / 0.92) 50%,
+      rgb(from var(--gold-dark) r g b / 0.92) 80%,
+      rgb(from var(--dark-main) r g b / 0.92) 100%
+    );
+    background-size: 100% 100%;
+    border-radius: 16px;
+    border: 2px solid rgba(255,255,255,0.12);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.03);
   text-decoration: none;
   color: var(--text-light);
   font-weight: 600;

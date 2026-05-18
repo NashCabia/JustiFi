@@ -24,6 +24,7 @@ async function logoutUser() {
 
 let currentUser = null;
 let overviewChart = null;
+let unsubscribeUsers = null;
 
 document.addEventListener("DOMContentLoaded", async () => {
   setupMenu();
@@ -40,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   await loadProfile();
-  await loadStudentOverview();
+  startStudentOverviewListener();
 });
 
 async function loadProfile() {
@@ -101,7 +102,7 @@ function renderAdminProfile(user) {
     safeText(user.email) ||
     "Admin";
 
-  setText("navAdminName", displayName || "Admin");
+  setText("navAdminName", safeText(user.firstName) || "Admin");
   setText("profileDisplayName", displayName);
   setText("userRole", capitalize(user.role || "teacher"));
   setText(
@@ -204,23 +205,55 @@ showFloatingPanel("Profile updated successfully.", "success");  } catch (error) 
 }
 
 async function loadStudentOverview() {
+function startStudentOverviewListener() {
   const fb = window.JustifiFirebase;
   const store = window.JustifiStore;
 
-  let students = [];
-
   try {
     if (fb && fb.isConfigured && fb.isConfigured()) {
-      const users = await fb.getAllUsers();
-      students = (users || []).filter(u => (u.role || "student") === "student");
-    } else if (store && typeof store.getStudents === "function") {
-      students = store.getStudents();
+      if (unsubscribeUsers) {
+        unsubscribeUsers();
+      }
+
+      unsubscribeUsers = fb.subscribeToUsers((users) => {
+        const students = (Array.isArray(users) ? users : []).filter(u => (u.role || 'student') === 'student');
+        renderStudentOverview(students);
+      }, (error) => {
+        console.error("Failed to load student overview:", error);
+        renderStudentOverview([]);
+      });
+    } else if (store && typeof store.getStudents === 'function') {
+      renderStudentOverview(store.getStudents());
+    } else {
+      renderStudentOverview([]);
     }
   } catch (error) {
     console.error("Failed to load student overview:", error);
-    students = [];
+    renderStudentOverview([]);
   }
+}
 
+function renderStudentOverview(students) {
+  const list = Array.isArray(students) ? students : [];
+  const totalStudents = list.length;
+  const activeStudents = list.filter(s => String(s.accountStatus || "active").toLowerCase() === "active").length;
+  const completedProfiles = list.filter(s => !!s.profileCompleted).length;
+  const studentsWithProgress = list.filter(s => hasAnyProgress(s.progress)).length;
+  const averageQuizScore = Math.round(computeAverageQuizScorePercent(list));
+  const overallCompletion = totalStudents ? Math.round((completedProfiles / totalStudents) * 100) : 0;
+
+  setText("totalStudents", String(totalStudents));
+  setText("activeStudents", String(activeStudents));
+  setText("overallCompletion", `${overallCompletion}%`);
+
+  renderAdminChart({
+    totalStudents,
+    activeStudents,
+    completedProfiles,
+    studentsWithProgress,
+    averageQuizScore
+  });
+}
   const totalStudents = students.length;
   const activeStudents = students.filter(s => String(s.accountStatus || "active").toLowerCase() === "active").length;
   const completedProfiles = students.filter(s => !!s.profileCompleted).length;
@@ -265,6 +298,13 @@ function computeAverageQuizScorePercent(students) {
 
   return count ? total / count : 0;
 }
+
+window.addEventListener("beforeunload", () => {
+  if (unsubscribeUsers) {
+    unsubscribeUsers();
+    unsubscribeUsers = null;
+  }
+});
 
 function renderAdminChart(summary) {
   const canvas = document.getElementById("adminOverviewChart");

@@ -8,8 +8,8 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="../developer.html">
-      <img class="brand-logo" src="../Images/logo.png" alt="JustiFi logo" />
+    <a class="brand" href="#">
+      <h1 class="brand-logo">JustiFi</h1>
     </a>
     <div class="topbar-right">
       <span class="welcome">Assign Roles</span>
@@ -29,36 +29,72 @@
 
     <section class="panel-card">
       <div class="panel-head">
-        <h2>Role Update</h2>
+        <h2>Assign Roles</h2>
       </div>
 
-      <div class="user-list">
-        <div class="user-card">
-          <div class="user-main">
-            <h3>Target User</h3>
-            <p>Enter the email of the account you want to update.</p>
-            <input class="search-input" type="email" id="email" placeholder="User Email" />
+      <!-- Search and Filter Section -->
+      <div class="search-filter-section">
+        <div class="search-box">
+          <input class="search-input" type="text" id="searchInput" placeholder="Search by email or name..." />
+          <button class="search-btn" type="button" aria-label="Search">Search</button>
+        </div>
+        
+        <div class="filter-box">
+          <label for="roleFilter">Filter by Role:</label>
+          <select class="role-select" id="roleFilter">
+            <option value="">All Roles</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="developer">Developer</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Users List -->
+      <div class="users-list-container">
+        <div id="usersList" class="users-list"></div>
+        <div id="noUsersMessage" class="no-users-message" style="display: none;">
+          <p>No users found. Try adjusting your search or filter.</p>
+        </div>
+      </div>
+
+      <!-- Role Assignment Form -->
+      <div id="roleAssignmentForm" class="role-assignment-form hidden">
+        <div class="form-header">
+          <h3>Update Role for <span id="selectedUserName"></span></h3>
+          <button class="close-form-btn" type="button">✕</button>
+        </div>
+
+        <div class="form-content">
+          <div class="form-field">
+            <label for="selectedEmail">Email:</label>
+            <input type="email" id="selectedEmail" readonly />
           </div>
 
-          <div class="role-box">
-            <label for="role">Role</label>
-            <select class="role-select" id="role">
+          <div class="form-field">
+            <label for="newRole">New Role:</label>
+            <select id="newRole">
               <option value="student">Student</option>
               <option value="teacher">Teacher</option>
               <option value="developer">Developer</option>
             </select>
-
-            <label for="assignedGradeLevel">Assigned Grade Level</label>
-  <input class="search-input" type="text" id="assignedGradeLevel" placeholder="Example: Grade 10" />
-  <label for="assignedSection">Assigned Section</label>
-  <input class="search-input" type="text" id="assignedSection" placeholder="Example: Section A" />
           </div>
 
-          <button class="assign-btn" id="assignRoleBtn" type="button">Update Role</button>
+          <div class="form-field" id="gradeField" style="display: none;">
+            <label for="newGradeLevel">Grade Level (for teachers):</label>
+            <input type="text" id="newGradeLevel" placeholder="Example: Grade 10" />
+          </div>
+
+          <div class="form-field" id="sectionField" style="display: none;">
+            <label for="newSection">Section (for teachers):</label>
+            <input type="text" id="newSection" placeholder="Example: Section A" />
+          </div>
+
+          <button class="assign-btn" id="submitRoleBtn" type="button">Update Role</button>
         </div>
       </div>
 
-      <div class="status-note">This page uses demo data now and will sync with Firebase when configured.</div>
+      <div class="status-note">Search and select a user to update their role.</div>
     </section>
   </main>
 

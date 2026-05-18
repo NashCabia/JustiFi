@@ -272,6 +272,16 @@ body {
   width: 280px;
   max-width: 100%;
 }
+.search-btn {
+  padding: 12px 16px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  background: #1c1132;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.25s ease;
+}
 
 .filter-select {
   min-width: 160px;
@@ -455,4 +465,8 @@ body {
   .welcome {
     display: none;
   }
+}
+
+.brand-logo {
+  color: #f5f3ef;
 }

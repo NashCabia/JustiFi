@@ -6,6 +6,10 @@ function goToStudents() {
   window.location.href = "Students/students.html";
 }
 
+function goToManageStudents() {
+  window.location.href = "Manage/manage-students.html";
+}
+
 async function logoutUser() {
   try {
     if (window.JustifiFirebase && window.JustifiFirebase.isConfigured()) {
@@ -23,6 +27,7 @@ async function logoutUser() {
 }
 
 let overviewChart = null;
+let latestStudents = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
   setupMenu();
@@ -75,8 +80,7 @@ function bindAdminName(user) {
         : user.firstName || user.fullName || user.email || fallbackName)
     : fallbackName;
 
-  const navAdminName = document.getElementById("navAdminName");
-  const heroAdminName = document.getElementById("heroAdminName");
+   
 
   if (navAdminName) navAdminName.textContent = name;
   if (heroAdminName) heroAdminName.textContent = name;
@@ -99,6 +103,8 @@ async function loadStudentOverview() {
     students = [];
   }
 
+  latestStudents = students;
+
   const totalStudents = students.length;
   const activeStudents = students.filter(s => String(s.accountStatus || "active").toLowerCase() === "active").length;
   const completedProfiles = students.filter(s => !!s.profileCompleted).length;
@@ -117,6 +123,72 @@ async function loadStudentOverview() {
     studentsWithProgress,
     averageQuizScore
   });
+}
+
+async function printStudentData() {
+  try {
+    let students = latestStudents;
+
+    if (!Array.isArray(students) || !students.length) {
+      const fb = window.JustifiFirebase;
+      if (fb && fb.isConfigured && fb.isConfigured()) {
+        students = await fb.getStudents();
+      }
+    }
+
+    if (!Array.isArray(students) || !students.length) {
+      showFloatingPanel("No student data available to export.", "error");
+      return;
+    }
+
+    if (typeof XLSX === "undefined") {
+      showFloatingPanel("Excel export library is not loaded.", "error");
+      return;
+    }
+
+    const summaryRows = [
+      { Metric: "Total Students", Value: students.length },
+      { Metric: "Active Students", Value: students.filter(s => String(s.accountStatus || "active").toLowerCase() === "active").length },
+      { Metric: "Completed Profiles", Value: students.filter(s => !!s.profileCompleted).length },
+      { Metric: "Students with Progress", Value: students.filter(s => hasAnyProgress(s.progress)).length },
+      { Metric: "Average Quiz Score", Value: `${Math.round(computeAverageQuizScorePercent(students))}%` }
+    ];
+
+    const studentRows = students.map((student) => {
+      const progressItems = Array.isArray(student.progress) ? student.progress : [];
+      const quizScores = Array.isArray(student.quizScores) ? student.quizScores : [];
+      const quizAverage = quizScores.length
+        ? Math.round(quizScores.reduce((sum, score) => sum + Number(score && score.score !== undefined ? score.score : score || 0), 0) / quizScores.length)
+        : 0;
+
+      return {
+        Name: student.fullName || [student.firstName, student.lastName].filter(Boolean).join(" ").trim() || student.email || "",
+        Email: student.email || "",
+        Role: student.role || "student",
+        GradeLevel: student.gradeLevel || "",
+        Section: student.section || "",
+        Status: student.accountStatus || "active",
+        ProfileCompleted: student.profileCompleted ? "Yes" : "No",
+        CompletedLessons: progressItems.length,
+        BadgeCount: Array.isArray(student.badges) ? student.badges.length : 0,
+        QuizAverage: `${quizAverage}%`
+      };
+    });
+
+    const workbook = XLSX.utils.book_new();
+    const summarySheet = XLSX.utils.json_to_sheet(summaryRows);
+    const studentsSheet = XLSX.utils.json_to_sheet(studentRows);
+
+    XLSX.utils.book_append_sheet(workbook, summarySheet, "Summary");
+    XLSX.utils.book_append_sheet(workbook, studentsSheet, "Students");
+
+    const fileName = `student-monitoring-${new Date().toISOString().slice(0, 10)}.xlsx`;
+    XLSX.writeFile(workbook, fileName);
+    showFloatingPanel("Student data exported to Excel.", "success");
+  } catch (error) {
+    console.error("Failed to export student data:", error);
+    showFloatingPanel("Failed to export student data.", "error");
+  }
 }
 
 function hasAnyProgress(progress) {
@@ -232,6 +304,8 @@ function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
 }
+
+window.printStudentData = printStudentData;
 
 function showFloatingPanel(message, type = "success") {
   const panel = document.getElementById("floatingPanel");

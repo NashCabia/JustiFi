@@ -213,6 +213,7 @@
 
     getDisplayName(user) {
       if (!user) return "Login";
+      if (user.role === "developer") return "Developer";
       const first = (user.firstName || "").trim();
       const last = (user.lastName || "").trim();
       const full = `${first} ${last}`.trim();
@@ -236,8 +237,17 @@
     async registerUser(payload) {
       if (!ensureInit()) throw new Error("Firebase is not configured yet.");
 
+      // Normalize email to lowercase for comparison
+      const normalizedEmail = (payload.email || "").toLowerCase().trim();
+
+      // Check if email already exists in Firestore
+      const emailQuery = await db.collection("users").where("email", "==", normalizedEmail).limit(1).get();
+      if (!emailQuery.empty) {
+        throw new Error("Email already registered in the system. Please log in instead or contact an administrator.");
+      }
+
       const cred = await auth.createUserWithEmailAndPassword(
-        payload.email,
+        normalizedEmail,
         payload.password
       );
 
@@ -247,14 +257,14 @@
         firstName: payload.firstName || "",
         middleName: payload.middleName || "",
         lastName: payload.lastName || "",
-        email: payload.email || ""
+        email: normalizedEmail || ""
       }));
 
       await auth.signOut();
 
       return {
         pendingVerification: true,
-        email: payload.email
+        email: normalizedEmail
       };
     },
 
@@ -264,8 +274,15 @@
       const cred = await auth.signInWithEmailAndPassword(email, password);
 
       if (!cred.user.emailVerified) {
+        // Send verification email before signing out
+        try {
+          await cred.user.sendEmailVerification();
+        } catch (error) {
+          console.warn("Could not send verification email:", error);
+        }
+        
         await auth.signOut();
-        throw new Error("Please verify your email first before logging in.");
+        throw new Error("Email not verified yet. We've sent you a verification link. Please check your email and verify, then log in again.");
       }
 
       await createUserProfileIfMissing(cred.user);
@@ -281,6 +298,16 @@
     async getCurrentUser() {
       if (!ensureInit()) return null;
       return await mapUser(auth.currentUser);
+    },
+
+    getFirestore() {
+      if (!ensureInit()) return null;
+      return db;
+    },
+
+    getAuth() {
+      if (!ensureInit()) return null;
+      return auth;
     },
 
     async updateCurrentUserProfile(patch) {
@@ -330,6 +357,31 @@
 
       const snap = await db.collection("users").get();
       return snap.docs.map(mapFirestoreDoc);
+    },
+
+    subscribeToUsers(onUpdate, onError) {
+      if (!ensureInit()) {
+        if (typeof onError === "function") {
+          onError(new Error("Firebase is not configured yet."));
+        }
+        return () => {};
+      }
+
+      return db.collection("users").onSnapshot(
+        (snap) => {
+          const users = snap.docs.map(mapFirestoreDoc);
+          if (typeof onUpdate === "function") {
+            onUpdate(users);
+          }
+        },
+        (error) => {
+          if (typeof onError === "function") {
+            onError(error);
+          } else {
+            console.error("Failed to subscribe to users:", error);
+          }
+        }
+      );
     },
 
     async getStudents(adminUser = null) {

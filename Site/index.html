@@ -86,167 +86,88 @@
 
 
 <!-- ANNOUNCEMENT -->
-<!-- ANNOUNCEMENT -->
 <section id="announcement" class="announcement section-bg bg2">
   <div class="overlay"></div>
 
   <div class="content announcement-content">
-    <h2>Announcements</h2>
-
-    <div class="announcement-panel">
-      <div class="announcement-header">
-        <div>
-          <span class="announcement-badge">Patch Notes</span>
-          <h3>JustiFi – Patch Notes v0.6</h3>
-          <p>April 2026 • In Development</p>
-        </div>
+    <div class="corkboard-panel">
+      <div class="corkboard-left">
       </div>
 
-      <div class="announcement-scroll">
+      <div class="corkboard-right">
+        <div class="sticky-carousel" aria-label="Announcement sticky notes">
+          <button class="sticky-arrow sticky-prev" type="button" aria-label="Previous announcement">
+            <img src="assets/Icons/back-button.png" alt="" aria-hidden="true">
+          </button>
 
-        <div class="announcement-item">
-          <h4>New Features</h4>
 
-          <h5>Web System</h5>
-          <ul>
-            <li>Added Home Page UI with navigation and featured content</li>
-            <li>Implemented User Registration and Login System</li>
-            <li>Added User Dashboard with progress summary</li>
-            <li>Developed Admin Dashboard with user statistics</li>
-            <li>Implemented User Profile and Badge Display System</li>
-          </ul>
+          <div id="stickyNotesContainer" class="sticky-window"></div>
 
-          <h5>Gameplay System</h5>
-          <ul>
-            <li>Implemented branching story logic</li>
-            <li>Added choice-based decision system</li>
-            <li>Integrated scene transitions and motion graphics</li>
-            <li>Added 3D character models</li>
-          </ul>
-
-          <h5>Learning Features</h5>
-          <ul>
-            <li>Implemented Quiz Assessment System</li>
-            <li>Added Legal Explanation Display with animated text</li>
-            <li>Integrated Progress Tracking and Score Monitoring</li>
-          </ul>
+          <button class="sticky-arrow sticky-next" type="button" aria-label="Next announcement">
+            <img src="assets/Icons/back-button.png" alt="" aria-hidden="true">
+          </button>
         </div>
 
-        <div class="announcement-item">
-          <h4>Improvements</h4>
-          <ul>
-            <li>Improved UI layout and readability across pages</li>
-            <li>Enhanced input validation and error handling</li>
-            <li>Optimized navigation system for smoother user experience</li>
-            <li>Improved data retrieval from database for user profiles</li>
-            <li>Enhanced admin monitoring tools including progress tracking and CSV export</li>
-          </ul>
-        </div>
-
-        <div class="announcement-item">
-          <h4>In Progress / Upcoming Features</h4>
-
-          <h5>Gameplay</h5>
-          <ul>
-            <li>Character animations including idle, talking, and reactions</li>
-            <li>Event scenes and story cutscenes</li>
-            <li>Load progress system</li>
-          </ul>
-
-          <h5>Learning System</h5>
-          <ul>
-            <li>Feedback system for quiz results</li>
-            <li>Improved legal concept explanations per scenario</li>
-          </ul>
-
-          <h5>Web System</h5>
-          <ul>
-            <li>Announcement feed system with view and edit posts</li>
-            <li>Real-time content updates</li>
-            <li>Search and filter for users</li>
-          </ul>
-
-          <h5>Authentication</h5>
-          <ul>
-            <li>Forgot password system with email verification and reset</li>
-            <li>Two-factor authentication</li>
-          </ul>
-
-          <h5>Advanced Features</h5>
-          <ul>
-            <li>Offline gameplay support</li>
-            <li>Data synchronization system</li>
-            <li>Cloud storage integration for assets</li>
-          </ul>
-        </div>
       </div>
+    </div>
   </div>
+
+
 </section>
  
 
 <!-- ABOUT -->
 <section id="about" class="section-bg bg3">
+
   <div class="overlay"></div>
+
   <div class="content">
-    <div class="about-panels">
-      <div class="about-panel">
-        <h2>About The Game</h2>
-        <h3>Overview</h3>
-        <p>
-          JustiFi is an interactive, choice-driven visual novel designed to improve legal literacy among senior high school students. The game places players in real-life scenarios involving youth protection, gender safety, cyber safety, and police encounters, allowing them to make decisions and experience the consequences of their actions.
+
+    <div class="about-layout">
+
+      <!-- LEFT -->
+      <div class="about-left">
+
+        <span class="about-tag">
+          EDUCATIONAL VISUAL NOVEL
+        </span>
+
+        <h1 class="about-title">
+          ABOUT
+          JUSTIFI
+        </h1>
+
+        <p class="about-description">
+          JustiFi is an interactive, choice-driven visual novel designed to
+          improve legal literacy among senior high school students.
+          The game immerses players in realistic scenarios involving
+          youth protection, cyber safety, gender awareness, and police
+          encounters, allowing them to make decisions and experience
+          the consequences of their actions.
         </p>
-        <p>
-          Unlike traditional learning methods, JustiFi uses branching narratives and decision-based gameplay to simulate real-world situations. Each choice made by the player influences the outcome of the story, guiding them toward either a good or bad ending depending on their understanding of legal concepts.
+
+        <p class="about-description">
+          Through branching narratives and decision-based gameplay,
+          JustiFi transforms legal education into an engaging and
+          immersive learning experience that promotes critical thinking,
+          awareness, and responsible decision-making.
         </p>
-        <p>
-          Through this approach, JustiFi aims to make learning about laws engaging, practical, and memorable, helping students become more informed and responsible individuals in society.
-        </p>
-        <p>
-          <strong>Mission:</strong> To provide an engaging and interactive platform that enhances students&rsquo; understanding of legal rights, responsibilities, and real-world consequences through gamified learning.
-        </p>
-        <p>
-          <strong>Vision:</strong> To become a widely recognized educational tool that promotes legal awareness and critical decision-making among students through immersive digital experiences.
-        </p>
+
+        <div class="about-buttons">
+
+  <button id="viewTeamButton" class="about-btn primary-btn">
+    VIEW THE TEAM
+  </button>
+
+</div>
+
       </div>
 
-      
 
-      <div class="about-panel">
-        <h3>About the Team</h3>
-        <p>
-          We are a group of student developers under the team name <strong>JAVACHIP.EXE</strong>, working on this capstone project to create an innovative educational game.
-        </p>
-        
-      </div>
-
-      <div class="team-board-grid" aria-label="Team members">
-        <figure class="team-board">
-          <img src="Profiling/UserPage/Dashboard/Profile/Images/nash.jpg" alt="CABIA, Nash Daniel S." loading="lazy" />
-          <figcaption>CABIA, Nash Daniel S. <span>Web-Developer</span></figcaption>
-        </figure>
-
-        <figure class="team-board">
-          <img src="Profiling/AdminPage/Dashboard/Profile/Images/default-avatar.webp" alt="DE GUZMAN, Grazelle P." loading="lazy" />
-          <figcaption>DE GUZMAN, Grazelle P. <span>Documenter / Technical Writer</span></figcaption>
-        </figure>
-
-        <figure class="team-board">
-          <img src="Profiling/AdminPage/Dashboard/Profile/Images/default-avatar.webp" alt="ESTABILLO, Yuan Maru A." loading="lazy" />
-          <figcaption>ESTABILLO, Yuan Maru A. <span>Project Manager</span></figcaption>
-        </figure>
-
-        <figure class="team-board">
-          <img src="Profiling/AdminPage/Dashboard/Profile/Images/default-avatar.webp" alt="GIPAYA, Jehu S." loading="lazy" />
-          <figcaption>GIPAYA, Jehu S. <span>System Designer</span></figcaption>
-        </figure>
-
-        <figure class="team-board">
-          <img src="Profiling/AdminPage/Dashboard/Profile/Images/default-avatar.webp" alt="SALVADOR, Qjuin Dominic" loading="lazy" />
-          <figcaption>SALVADOR, Qjuin Dominic <span>System Analyst/Game Developer</span></figcaption>
-        </figure>
-      </div>
     </div>
+
   </div>
+
 </section>
 
 <section id="characters" class="characters section-bg bg4">
@@ -360,6 +281,8 @@
 <script src="JS/firebase-config.js"></script>
 <script src="JS/firebase-service.js"></script>
 <script src="JS/app-core.js"></script>
+<script src="JS/session-manager.js"></script>
 <script src="JS/script.js"></script>
+<script src="JS/firebase-announcements.js"></script>
 </body>
 </html>

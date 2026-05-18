@@ -35,7 +35,7 @@ body {
 
 /* topbar */
 .topbar {
-  height: 76px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -159,7 +159,7 @@ body {
   background: rgba(179, 123, 136, 0.16);
 }
 
-/* back */
+/* Back */
 .back-row {
   padding: 18px 24px 0;
 }
@@ -235,15 +235,26 @@ body {
   font-size: 24px;
 }
 
+.filters-container {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.brand-logo {
+  color: #f5f3ef;
+}
 .search-input {
-  width: 260px;
-  max-width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.06);
   color: #fff;
   outline: none;
+  flex: 1;
+  min-width: 120px;
+  font-size: 14px;
 }
 
 .student-list {
@@ -304,6 +315,11 @@ body {
     align-items: stretch;
   }
 
+  .filters-container {
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
   .search-input {
     width: 100%;
   }
@@ -330,7 +346,7 @@ body {
 
 .progress-mini-card strong {
   font-size: 24px;
-  color: #fff;
+  color: var(--text);
 }
 
 .mini-label {
@@ -346,6 +362,7 @@ body {
   border: 1px solid var(--border);
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
 }
 
 .chart-box canvas {

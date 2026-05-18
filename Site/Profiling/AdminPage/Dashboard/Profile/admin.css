@@ -149,7 +149,9 @@ body {
   color: #fff;
   background-color: #1c1132;
 }
-
+.brand-logo {
+  color: #f5f3ef;
+}
 .profile-shell {
   padding: 14px 20px 24px;
   display: grid;
@@ -183,7 +185,6 @@ body {
   object-fit: cover;
   object-position: center;
   margin: 0;
-  border: 3px solid rgba(106,79,245,0.15);
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
@@ -197,13 +198,13 @@ body {
   margin: 10px 0 4px;
   font-size: 18px;
   font-weight: 600;
-  color: var(--text);
+  color: var(white);
 }
 
 .profile-card p {
   margin: 0;
   font-size: 14px;
-  color: var(--accent);
+  color: var(--accent-2);
   font-weight: 500;
 }
 
@@ -540,7 +541,6 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #fff;
   background: #6a4ff5;
   padding: 8px;
   color: #fff;

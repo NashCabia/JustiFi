@@ -8,13 +8,13 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="#">
-      <img class="brand-logo" src="Images/logo.png" alt="JustiFi logo" />
+    <a class="brand" href="#">    
+        <h1 class="brand-logo">JustiFi</h1>
+
     </a>
 
     <div class="topbar-right">
-      <span class="welcome">Hello, <strong id="navAdminName">Admin</strong></span>
-      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">☰</button>
+      <a class="manage-link" href="../Manage/manage-students.html">Profile</a>
     </div>
   </header>
 
@@ -137,6 +137,7 @@
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
   <script src="../../../../JS/firebase-service.js"></script>
+  <script src="../../../../JS/session-manager.js"></script>
   <script src="admin.js"></script>
   <script src="../../../../JS/sticky-pin.js"></script>
 </body>

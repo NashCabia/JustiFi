@@ -222,7 +222,46 @@
   });
 })();
 
+// =============================== // ANNOUNCEMENT STICKY NOTE CAROUSEL // ===============================
 
+
+
+async function loadAnnouncements() {
+  const container = document.getElementById("stickyNotesContainer");
+  if (!container) return;
+
+  try {
+    const snapshot = await firebase.firestore()
+      .collection("announcements")
+      .orderBy("createdAt", "desc")
+      .get();
+
+    container.innerHTML = "";
+
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+
+      const note = document.createElement("article");
+      note.className = "sticky-note";
+
+      note.innerHTML = `
+        <div class="sticky-content">
+          <h3 class="sticky-title">${data.title || "Announcement"}</h3>
+          <div class="sticky-body">
+            <p>${data.description || ""}</p>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(note);
+    });
+
+  
+
+  } catch (error) {
+    console.error("Failed to load announcements:", error);
+  }
+}
 // ===============================
 // EXPLORE BUTTON SCROLL
 // ===============================
@@ -423,6 +462,8 @@ async function updateNavbarUserLink(user) {
     const href = fb && fb.getDashboardPath ? fb.getDashboardPath(user, '') : 'Login/auth.html';
     navUser.textContent = label;
     navUser.href = href;
+    navUser.classList.remove('plain');
+    navUser.removeAttribute('aria-disabled');
     if (navLoginFloating) {
       navLoginFloating.href = href;
       navLoginFloating.setAttribute('aria-label', 'Account');
@@ -432,6 +473,8 @@ async function updateNavbarUserLink(user) {
   } else {
     navUser.textContent = 'Login';
     navUser.href = 'Login/auth.html';
+    navUser.classList.remove('plain');
+    navUser.removeAttribute('aria-disabled');
     if (navLoginFloating) {
       navLoginFloating.href = 'Login/auth.html';
       navLoginFloating.setAttribute('aria-label', 'Login');
@@ -498,6 +541,8 @@ async function bindAuthNavigationLinks() {
 
       navUserLink.textContent = displayName;
       navUserLink.href = dashboardPath;
+      navUserLink.classList.remove("plain");
+      navUserLink.removeAttribute("aria-disabled");
 
       if (floatingLoginLink) {
         floatingLoginLink.href = dashboardPath;
@@ -508,6 +553,8 @@ async function bindAuthNavigationLinks() {
     } else {
       navUserLink.textContent = "Login";
       navUserLink.href = "Login/auth.html";
+      navUserLink.classList.remove("plain");
+      navUserLink.removeAttribute("aria-disabled");
 
       if (floatingLoginLink) {
         floatingLoginLink.href = "Login/auth.html";
@@ -520,3 +567,38 @@ async function bindAuthNavigationLinks() {
     console.error("Failed to bind auth navigation links:", error);
   }
 }
+
+const viewTeamButton = document.getElementById("viewTeamButton");
+
+  if (viewTeamButton) {
+    viewTeamButton.addEventListener("click", () => {
+      window.location.href = "HTML/team.html";
+    });
+  }
+
+  const viewPatchButton = document.getElementById("viewPatchButton");
+
+  if (viewPatchButton) {
+    viewPatchButton.addEventListener("click", () => {
+      const announcementSection =
+        document.getElementById("announcement");
+
+      if (announcementSection) {
+        announcementSection.scrollIntoView({
+          behavior: "smooth"
+        });
+      }
+    });
+  }
+
+  const backButton = document.getElementById("backButton");
+
+  if (backButton) {
+    backButton.addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
+  await bindAuthNavigationLinks();
+});

@@ -250,14 +250,29 @@ body {
   font-size: 24px;
 }
 
+.search-btn {
+  padding: 12px 16px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  background: #1c1132;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.25s ease;
+}
+
+.search-btn:hover {
+  background: #2a1a4c;
+}
+
 .search-input {
   width: 280px;
   max-width: 100%;
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
+  background: rgba(0, 0, 0, 0.06);
+  color: #000000;
   outline: none;
 }
 
@@ -371,4 +386,280 @@ body {
   .welcome {
     display: none;
   }
+}
+
+/* NEW: Search & Filter Section */
+.search-filter-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: end;
+}
+
+.search-box {
+  display: flex;
+  gap: 8px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.search-btn {
+  padding: 12px 16px;
+  border: 1px solid var(--text);
+  border-radius: 12px;
+  background: #1c1132;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.25s ease;
+}
+
+.search-btn:hover {
+  background: #2a1a4c;
+}
+
+.filter-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-box label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.filter-box select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+.filter-box select option {
+  background: #1a1426;
+  color: #fff;
+}
+
+/* Users List Container */
+.users-list-container {
+  margin-bottom: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-item {
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--accent);
+}
+
+.user-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-item-name {
+  font-weight: 500;
+  color: #fff;
+}
+
+.user-item-email {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.user-item-role {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(60, 51, 118, 0.2);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.no-users-message {
+  text-align: center;
+  padding: 24px;
+  color: var(--muted);
+}
+
+/* Role Assignment Form */
+.role-assignment-form {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 0;
+  margin-top: 20px;
+  transition: 0.2s ease;
+}
+
+.role-assignment-form.hidden {
+  display: none;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #280a42;
+}
+
+.close-form-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #2a1649;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.2s ease;
+}
+
+.close-form-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.form-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#selectedEmail:read-only {
+  color: #3e1b5b;
+  opacity: 1;
+}
+
+#newRole {
+  color: #2e0c50;
+  opacity: 1;
+}
+
+#newGradeLevel {
+  color: #2e0c50;
+  opacity: 1;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.form-field input,
+.form-field select {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  outline: none;
+  font-size: 14px;
+}
+
+.form-field input::placeholder,
+.form-field select {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form-field select option {
+  background: #1a1426;
+  color: #fff;
+}
+
+#submitRoleBtn {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.25s ease;
+  margin-top: 8px;
+}
+
+#submitRoleBtn:hover {
+  transform: translateY(-2px);
+}
+
+
+#submitRoleBtn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  .search-filter-section {
+    grid-template-columns: 1fr;
+  }
+
+  .users-list-container {
+    max-height: 350px;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-box {
+    flex-direction: column;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}
+
+.brand-logo {
+  color: #f5f3ef;
 }

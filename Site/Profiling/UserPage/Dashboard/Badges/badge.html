@@ -9,9 +9,12 @@
 
   <header class="topbar">
     <a class="brand" href="#">
-      <img class="brand-logo" src="../../Images/logo.png" alt="JAVACHIP logo" />
+      <h1 class="brand-logo">JustiFi</h1>
     </a>
 
+    <div class="topbar-right">
+      <a class="manage-link" href="../Manage/manage-students.html">Badges</a>
+    </div>
     
   </header>
 
@@ -26,15 +29,19 @@
   <div class="badges-grid">
 
     <div class="badge">
-      <img class="badge-img" alt="Starter badge (placeholder)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232b1b3f'/><stop offset='1' stop-color='%233a2555'/></linearGradient></defs><rect width='400' height='400' rx='28' fill='url(%23g)'/><rect x='36' y='36' width='328' height='328' rx='22' fill='rgba(255,255,255,0.10)' stroke='rgba(255,255,255,0.25)'/><text x='50%25' y='54%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='28' fill='rgba(255,255,255,0.85)'>Badge</text><text x='50%25' y='64%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='16' fill='rgba(255,255,255,0.65)'>Image placeholder</text></svg>" />
+      <img class="badge-img" alt="Starter badge" src="../../../../assets/Badges/badge1.png" />
     </div>
 
     <div class="badge locked">
-      <img class="badge-img" alt="Explorer badge (placeholder)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232b1b3f'/><stop offset='1' stop-color='%233a2555'/></linearGradient></defs><rect width='400' height='400' rx='28' fill='url(%23g)'/><rect x='36' y='36' width='328' height='328' rx='22' fill='rgba(255,255,255,0.10)' stroke='rgba(255,255,255,0.25)'/><text x='50%25' y='54%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='28' fill='rgba(255,255,255,0.85)'>Badge</text><text x='50%25' y='64%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='16' fill='rgba(255,255,255,0.65)'>Image placeholder</text></svg>" />
+      <img class="badge-img" alt="Quiz Rookie badge" src="../../../../assets/Badges/badge2.png" />
     </div>
 
     <div class="badge locked">
-      <img class="badge-img" alt="Champion badge (placeholder)" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%232b1b3f'/><stop offset='1' stop-color='%233a2555'/></linearGradient></defs><rect width='400' height='400' rx='28' fill='url(%23g)'/><rect x='36' y='36' width='328' height='328' rx='22' fill='rgba(255,255,255,0.10)' stroke='rgba(255,255,255,0.25)'/><text x='50%25' y='54%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='28' fill='rgba(255,255,255,0.85)'>Badge</text><text x='50%25' y='64%25' text-anchor='middle' font-family='Segoe UI, Arial' font-size='16' fill='rgba(255,255,255,0.65)'>Image placeholder</text></svg>" />
+      <img class="badge-img" alt="Consistent badge" src="../../../../assets/Badges/badge3.png" />
+    </div>
+
+    <div class="badge locked">
+      <img class="badge-img" alt="Achievement badge" src="../../../../assets/Badges/badge4.png" />
     </div>
 
   </div>
@@ -43,6 +50,12 @@
 
   </div>
 
+    <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+    <script src="../../../../JS/firebase-config.js"></script>
+    <script src="../../../../JS/firebase-service.js"></script>
+    <script src="../../../../JS/session-manager.js"></script>
     <script src="../../../../JS/sticky-pin.js"></script>
   </body>
   </html>

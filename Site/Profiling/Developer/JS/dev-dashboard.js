@@ -6,8 +6,8 @@ function goToManageAccounts() {
   window.location.href = "HTML/manage-accounts.html";
 }
 
-function goToSystemSettings() {
-  window.location.href = "HTML/system-settings.html";
+function goToUpdateAnnouncement() {
+  window.location.href = "HTML/update-announcement.html";
 }
 
 async function logoutUser() {
@@ -22,27 +22,65 @@ async function logoutUser() {
     window.location.href = "../../../Login/auth.html?logout=1";
   } catch (error) {
     console.error("Logout failed:", error);
-    alert("Logout failed. Please try again.");
+    window.showFloatingNotification("Logout failed. Please try again.", "error");
   }
 }
 
-/*
-  FIREBASE-READY PLACEHOLDER
-  Later, replace these values with Firestore/user summary data.
-*/
-const developerDashboardData = {
+let developerDashboardData = {
   firstName: "Developer",
-  totalUsers: 145,
-  studentAccounts: 120,
-  teacherAccounts: 20,
-  developerAccounts: 5
+  totalUsers: 0,
+  studentAccounts: 0,
+  teacherAccounts: 0,
+  developerAccounts: 0
 };
+let unsubscribeUsers = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderDeveloperDashboard();
+document.addEventListener("DOMContentLoaded", async () => {
+  startDashboardUsersListener();
   setupMenu();
   bindAuthName();
 });
+
+function getDemoUsers() {
+  return [];
+}
+
+function startDashboardUsersListener() {
+  try {
+    const fb = window.JustifiFirebase;
+    if (fb && fb.isConfigured && fb.isConfigured()) {
+      if (unsubscribeUsers) {
+        unsubscribeUsers();
+      }
+
+      unsubscribeUsers = fb.subscribeToUsers((allUsers) => {
+        const users = Array.isArray(allUsers) ? allUsers : [];
+        const nonDevUsers = users.filter(u => (u.role || 'student') !== 'developer');
+        developerDashboardData.totalUsers = nonDevUsers.length;
+        developerDashboardData.studentAccounts = nonDevUsers.filter(u => (u.role || 'student') === 'student').length;
+        developerDashboardData.teacherAccounts = nonDevUsers.filter(u => (u.role || 'student') === 'teacher').length;
+        developerDashboardData.developerAccounts = users.filter(u => (u.role || 'student') === 'developer').length;
+        renderDeveloperDashboard();
+      }, (error) => {
+        console.error("Error fetching dashboard data:", error);
+        developerDashboardData.totalUsers = 0;
+        developerDashboardData.studentAccounts = 0;
+        developerDashboardData.teacherAccounts = 0;
+        developerDashboardData.developerAccounts = 0;
+        renderDeveloperDashboard();
+      });
+    } else {
+      developerDashboardData.totalUsers = 0;
+      developerDashboardData.studentAccounts = 0;
+      developerDashboardData.teacherAccounts = 0;
+      developerDashboardData.developerAccounts = 0;
+      renderDeveloperDashboard();
+    }
+  } catch (error) {
+    console.error("Error fetching dashboard data:", error);
+    renderDeveloperDashboard();
+  }
+}
 
 function renderDeveloperDashboard() {
   setText("heroDevName", developerDashboardData.firstName || "Developer");
@@ -108,3 +146,10 @@ function setText(id, value) {
   const el = document.getElementById(id);
   if (el) el.textContent = value;
 }
+
+window.addEventListener("beforeunload", () => {
+  if (unsubscribeUsers) {
+    unsubscribeUsers();
+    unsubscribeUsers = null;
+  }
+});

@@ -9,7 +9,7 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#">
-      <img class="brand-logo" src="../Images/logo.png" alt="JustiFi logo" />
+            <h1 class="brand-logo">JustiFi</h1>
     </a>
 
     <div class="topbar-right">
@@ -29,6 +29,7 @@
     <div class="side-menu-body">
       <button class="menu-link" onclick="goToProfile()">Profile</button>
       <button class="menu-link" onclick="goToStudents()">Student List</button>
+      <button class="menu-link" onclick="goToManageStudents()">Manage Students</button>
       <button class="menu-link logout-btn" onclick="logoutUser()">Logout</button>
     </div>
   </aside>
@@ -69,6 +70,7 @@
           <p class="card-kicker">LIVE FIREBASE DATA</p>
           <h2>Student Monitoring Overview</h2>
         </div>
+        <button class="print-data-btn" type="button" onclick="printStudentData()">Print Data</button>
       </div>
       <div class="chart-wrap">
         <canvas id="adminOverviewChart"></canvas>
@@ -79,7 +81,7 @@
       <p class="card-kicker">QUICK ACCESS</p>
       <h2>Main Sections</h2>
 
-      <div class="action-grid two-col">
+      <div class="action-grid">
         <button class="feature-card" onclick="goToProfile()">
           <h3>Profile</h3>
           <p>View and manage your admin information.</p>
@@ -88,6 +90,11 @@
         <button class="feature-card" onclick="goToStudents()">
           <h3>Student List</h3>
           <p>Select a student to view their progress, scores, and performance.</p>
+        </button>
+
+        <button class="feature-card" onclick="goToManageStudents()">
+          <h3>Manage Students</h3>
+          <p>Manipulate student grades, sections, and academic information.</p>
         </button>
       </div>
     </section>
@@ -98,12 +105,14 @@
 </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
   <script src="../../../JS/firebase-config.js"></script>
   <script src="../../../JS/firebase-service.js"></script>
   <script src="../../../JS/app-core.js"></script>
+  <script src="../../../JS/session-manager.js"></script>
   <script src="../../../JS/auth-guard.js"></script>
   <script>
     window.JustifiAuthGuard.protectPage("../../../");

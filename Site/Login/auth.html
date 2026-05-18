@@ -11,8 +11,11 @@
   <img src="../assets/Login/LoginBG.jpg" alt="Background Image">
 </div>
 
-<div class="auth-container">
-  <div class="auth-panel">
+<div class="auth-frame">
+  <img src="../assets/Background/frame.png" alt="Frame" class="frame-img">
+
+  <div class="auth-container">
+      <div class="auth-panel">
     <div class="form login">
       <h2>Login</h2>
       <input id="loginEmail" type="email" placeholder="Email">
@@ -29,12 +32,12 @@
       <button id="loginBtn">Login</button>
       <p>Don't have an account?</p>
       <button class="switch" id="showRegister">Register</button>
-      <a class="back" href="../index.html"><img src="../assets/Icons/back-button.png" alt="Back to Site" /></a>
+      <a class="back" href="../index.html"><img src="../assets/Login/back-button.png" alt="Back to Site" /></a>
     </div>
 
     <div class="info-area">
-      <h1>JustiFi</h1>
-    </div>
+  <img src="../assets/Login/justifi-logo.png" alt="JustiFi" class="justifi-logo">
+</div>
 
     <div class="form register register-scroll">
       <h2>Create Account</h2>
@@ -48,10 +51,12 @@
       <button id="registerBtn">Register</button>
       <p>Already have an account?</p>
       <button class="switch" id="showLogin">Login</button>
-      <a class="back" href="../index.html"><img src="../assets/Icons/back-button.png" alt="Back to Site" /></a>
+      <a class="back" href="../index.html"><img src="../assets/Login/back-button.png" alt="Back to Site" /></a>
     </div>
   </div>
 </div>
+</div>
+
 
 <div id="forgotPasswordModal" class="forgot-modal hidden">
   <div class="forgot-modal-content">
@@ -75,6 +80,7 @@
 <script src="../JS/firebase-config.js"></script>
 <script src="../JS/firebase-service.js"></script>
 <script src="../JS/app-core.js"></script>
+<script src="../JS/session-manager.js"></script>
 <script src="auth.js"></script>
   <script src="../JS/sticky-pin.js"></script>
 </body>

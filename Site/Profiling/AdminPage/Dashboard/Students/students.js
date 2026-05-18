@@ -125,6 +125,7 @@ students = await fb.getStudents(currentAdmin);
       `;
 
       card.addEventListener("click", () => {
+        console.log("[students.js] navigating to student view with id:", id);
         window.location.href = `Students-View/students-view.html?id=${encodeURIComponent(id)}`;
       });
 
@@ -183,6 +184,9 @@ if (searchInput) searchInput.addEventListener("input", applyFilters);
 if (progressFilter) progressFilter.addEventListener("change", applyFilters);
 if (gradeFilter) gradeFilter.addEventListener("input", applyFilters);
 if (sectionFilter) sectionFilter.addEventListener("input", applyFilters);
+
+  // Render students list by default
+  renderStudents(students);
 }
 
 function setupMenu() {

@@ -38,6 +38,24 @@ async function logoutUser() {
 
 let currentUser = null;
 
+const BADGE_LIBRARY = {
+  starter: {
+    label: 'Starter',
+    description: 'Created a JustiFi account',
+    image: '../../../../assets/Badges/badge1.png'
+  },
+  quiz_rookie: {
+    label: 'Quiz Rookie',
+    description: 'Recorded the first quiz score',
+    image: '../../../../assets/Badges/badge2.png'
+  },
+  consistent: {
+    label: 'Consistent',
+    description: 'Reached 70% average progress',
+    image: '../../../../assets/Badges/badge3.png'
+  }
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   setupMenu();
 
@@ -145,6 +163,8 @@ function renderProfile(user) {
   setText("createdAt", formatValue(user.createdAt));
   setText("updatedAt", formatValue(user.updatedAt));
 
+  renderProfileBadges(user);
+
   const profileImage = document.getElementById("profileImage");
   const DEFAULT_IMAGE = "../../../AdminPage/Dashboard/Profile/Images/default-avatar.webp";
 
@@ -159,6 +179,47 @@ function renderProfile(user) {
   if (profileImage && !user.profileImage?.localPath && user.avatarDataUrl) {
     profileImage.src = user.avatarDataUrl;
   }
+}
+
+function renderProfileBadges(user) {
+  const grid = document.getElementById('profileBadgeGrid');
+  const countLabel = document.getElementById('badgeCountLabel');
+
+  if (!grid) return;
+
+  const badges = Array.isArray(user?.badges) ? user.badges : [];
+  const slots = 6;
+  const filled = badges.slice(0, slots).map((badgeId) => createBadgeSlot(badgeId, true));
+  const placeholders = Array.from({ length: Math.max(0, slots - filled.length) }, () => createBadgeSlot('', false));
+
+  grid.innerHTML = [...filled, ...placeholders].join('');
+
+  if (countLabel) {
+    countLabel.textContent = `${badges.length} earned`;
+  }
+}
+
+function createBadgeSlot(badgeId, earned) {
+  const badge = BADGE_LIBRARY[badgeId] || {
+    label: badgeId ? formatBadgeLabel(badgeId) : 'Empty',
+    description: badgeId ? 'Badge unlocked' : 'No badge yet',
+    image: '../../../../assets/Badges/badge4.png'
+  };
+
+  return `
+    <div class="profile-badge ${earned ? 'earned' : 'empty'}" title="${escapeHtml(badge.description)}">
+      <div class="profile-badge-icon">
+        ${earned ? `<img class="profile-badge-img" src="${badge.image}" alt="${escapeHtml(badge.label)} badge" />` : '+'}
+      </div>
+      <span class="profile-badge-label">${escapeHtml(badge.label)}</span>
+    </div>
+  `;
+}
+
+function formatBadgeLabel(value) {
+  return String(value)
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
 async function saveProfile() {
@@ -329,6 +390,12 @@ function setText(id, value) {
 function safeText(value) {
   if (value === null || value === undefined) return "";
   return String(value).trim();
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
 }
 
 function formatValue(value) {

@@ -6,6 +6,15 @@ function goToBadges() {
   window.location.href = "Badges/badge.html";
 }
 
+function goToQuizzes() {
+  if (typeof showFloatingPanel === "function") {
+    showFloatingPanel("Quizzes page is coming soon.", "info");
+    return;
+  }
+
+  console.log("Quizzes page is coming soon.");
+}
+
 async function logoutUser() {
   try {
     if (window.JustifiFirebase && window.JustifiFirebase.isConfigured()) {

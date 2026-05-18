@@ -291,7 +291,12 @@ document.getElementById("registerBtn").addEventListener("click", async () => {
     showFloatingPanel("Verification email sent. Please verify your email first, then log in.");
     panel.classList.remove("show-register");
   } catch (error) {
-    showFloatingPanel(error.message);
+    const errorMsg = error.message || "";
+    if (errorMsg.includes("already in use") || errorMsg.includes("EMAIL_EXISTS")) {
+      showFloatingPanel("Email already registered. Please log in instead.");
+    } else {
+      showFloatingPanel(errorMsg);
+    }
   }
 });
 

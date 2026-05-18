@@ -9,12 +9,11 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#">
-      <img class="brand-logo" src="Images/logo.png" alt="JustiFi logo" />
+      <h1 class="brand-logo">JustiFi</h1>
     </a>
 
     <div class="topbar-right">
-      <span class="welcome">Hello, <strong id="navUserName">Student</strong></span>
-      <button id="menuBtn" class="menu-btn" type="button" aria-label="Open menu">☰</button>
+      <a class="manage-link" href="../Manage/manage-students.html">Profile</a>
     </div>
   </header>
 
@@ -49,6 +48,14 @@
       <h2 id="profileDisplayName">Loading...</h2>
       <p id="userRole">Student</p>
       <p id="userStatus" class="sub-info">Loading...</p>
+
+      <div class="profile-badges">
+        <div class="profile-badges-head">
+          <h3>Badges</h3>
+          <span id="badgeCountLabel">0 earned</span>
+        </div>
+        <div id="profileBadgeGrid" class="profile-badge-grid" aria-label="Earned badges"></div>
+      </div>
     </section>
 
     <section class="info-card">

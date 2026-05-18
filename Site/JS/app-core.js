@@ -33,6 +33,60 @@
     return full || user.email || 'User';
   }
 
+  // Global floating notification helper for profiling pages
+  function showFloatingNotification(message, type = 'success') {
+    // Prefer existing floating panel used by profile pages
+    try {
+      const existingPanel = document.getElementById('floatingPanel');
+      const existingMsg = document.getElementById('floatingPanelMessage');
+      if (existingPanel && existingMsg) {
+        existingMsg.textContent = message;
+        existingPanel.className = `floating-panel ${type}`;
+        existingPanel.classList.remove('hidden');
+        setTimeout(() => {
+          existingPanel.classList.add('hidden');
+        }, 3000);
+        return;
+      }
+
+      // Otherwise, show a top-right transient panel (match profile style)
+      let panel = document.getElementById('globalNotificationPanel');
+      if (!panel) {
+        panel = document.createElement('div');
+        panel.id = 'globalNotificationPanel';
+        panel.style.cssText = '\n          position: fixed;\n          top: 24px;\n          right: 24px;\n          padding: 12px 18px;\n          border-radius: 8px;\n          font-size: 14px;\n          font-weight: 600;\n          z-index: 10000;\n          box-shadow: 0 6px 18px rgba(0,0,0,0.12);\n          display: none;\n        ';
+        document.body.appendChild(panel);
+        const style = document.createElement('style');
+        style.textContent = `@keyframes jfSlideIn { from { transform: translateX(120px); opacity: 0 } to { transform: translateX(0); opacity: 1 } }`;
+        document.head.appendChild(style);
+      }
+
+      panel.textContent = message;
+      if (type === 'success') {
+        panel.style.backgroundColor = '#4caf50';
+        panel.style.color = '#fff';
+      } else if (type === 'error') {
+        panel.style.backgroundColor = '#f44336';
+        panel.style.color = '#fff';
+      } else {
+        panel.style.backgroundColor = '#2196f3';
+        panel.style.color = '#fff';
+      }
+
+      panel.style.display = 'block';
+      panel.style.animation = 'jfSlideIn 0.28s ease-out';
+
+      setTimeout(() => {
+        try { panel.style.display = 'none'; } catch (_) {}
+      }, 3000);
+    } catch (e) {
+      try { alert(message); } catch (_) {}
+    }
+  }
+
+  // expose globally
+  window.showFloatingNotification = showFloatingNotification;
+
   function seed() {
     const existing = readJson(USERS_KEY, null);
     if (existing && existing.length) return;

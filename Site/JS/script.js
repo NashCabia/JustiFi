@@ -57,6 +57,7 @@
   }
 
   const SWIPE_THRESHOLD_PX = 90;
+  const TAP_MOVE_THRESHOLD_PX = 10;
   let activeCard = null;
   let startX = 0;
   let startY = 0;
@@ -65,6 +66,9 @@
   let isDragging = false;
 
   function onPointerDown(e) {
+    if (e.button != null && e.button !== 0) return;
+    if (e.isPrimary === false) return;
+
     const topCard = deck.querySelector(".swipe-card");
     if (!topCard) return;
     if (e.target && !topCard.contains(e.target)) return;
@@ -121,6 +125,12 @@
 
   function onPointerUp() {
     if (!isDragging || !activeCard) return;
+
+    // Treat a simple click/tap (no meaningful movement) as "next card".
+    if (Math.abs(currentX) < TAP_MOVE_THRESHOLD_PX && Math.abs(currentY) < TAP_MOVE_THRESHOLD_PX) {
+      finishSwipe();
+      return;
+    }
 
     if (Math.abs(currentX) >= SWIPE_THRESHOLD_PX) {
       const direction = currentX < 0 ? -1 : 1;

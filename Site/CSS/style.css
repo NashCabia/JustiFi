@@ -1192,19 +1192,7 @@ section {
   opacity: 1;
 }
 
-/* Arrow Buttons */
-.prev, .next {
-  background: none;
-  border: none;
-  font-size: 50px;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.prev:hover, .next:hover {
-  color: #8e7dff;
-}
 
 .character.active {
   opacity: 1;
@@ -1562,7 +1550,7 @@ body.world-preview-open {
   min-height: 750px;
   padding: clamp(24px, 2.8vw, 36px);
 
-  background: url("../assets/Background/corkboard2.png") no-repeat center;
+  background: url("../assets/Background/corkboard.png") no-repeat center;
   background-size: 100% 100%;
 
   display: grid;
@@ -1576,9 +1564,10 @@ body.world-preview-open {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
   border-right: 2px dashed rgba(44, 24, 8, 0.35);
   padding-right: clamp(10px, 1.4vw, 18px);
+  gap: clamp(10px, 1.8vw, 18px);
 }
 
 .corkboard-left h2 {
@@ -1601,6 +1590,44 @@ body.world-preview-open {
   z-index: -1;
 }
 
+.corkboard-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 6px 0 0 2px;
+}
+
+.corkboard-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.corkboard-prof {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.corkboard-prof img{
+  width: min(300px, 100%);
+  height: auto;
+  display: block;
+  margin-left: clamp(280px, 6vw, 20px);
+  margin-bottom: 15px;
+  transform: scaleX(-1);
+}
+
+.corkboard-title img {
+  width: min(450px, 100%);
+  height: auto;
+  display: block;
+  margin-top: 18px;
+  margin-left: 70px;
+}
+
 .corkboard-right {
   display: grid;
   grid-template-rows: auto minmax(170px, 1fr);
@@ -1620,24 +1647,21 @@ body.world-preview-open {
   height: 44px;
   border: 0;
   border-radius: 999px;
-  background: rgba(47, 24, 8, 0.18);
+  background: rgba(47, 24, 8, 0);
   cursor: pointer;
   display: grid;
   place-items: center;
   transition: transform 180ms ease, background 180ms ease;
 }
 
-.sticky-arrow:hover {
-  background: rgba(47, 24, 8, 0.26);
-  transform: scale(1.06);
-}
 
 .sticky-arrow img {
-  width: 24px;
-  height: 24px;
+  width: 44px;
+  height: 44px;
+  filter: invert(1);
 }
 
-.sticky-next img {
+.sticky-prev img {
   transform: rotate(180deg);
 }
 
@@ -1676,17 +1700,7 @@ body.world-preview-open {
   z-index: 6;
 }
 
-.sticky-note.is-prev {
-  opacity: 0.65;
-  transform: translateX(-140%) translateY(30px) rotate(-12deg) scale(0.82);
-  z-index: 5;
-}
 
-.sticky-note.is-next {
-  opacity: 0.65;
-  transform: translateX(40%) translateY(30px) rotate(12deg) scale(0.82);
-  z-index: 5;
-}
 
 .sticky-note h3 {
   margin: 0;
@@ -1800,8 +1814,15 @@ body.world-preview-open {
     border-right: 0;
     border-bottom: 2px dashed rgba(44, 24, 8, 0.35);
     padding: 0 0 8px;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 12px;
   }
+
+  .corkboard-title img {
+    width: min(360px, 88vw);
+  }
+
+ 
 
   .sticky-window {
     min-height: 250px;
@@ -1898,55 +1919,53 @@ footer a {
 /* make carousel layout: notes on top, arrows below */
 .sticky-carousel {
   width: 100%;
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr auto auto 1fr;
-  grid-template-areas:
-    "notes notes notes notes"
-    ". prev next .";
+  grid-template-columns: 1fr;
   align-items: center;
   justify-items: center;
-  gap: 18px;
   overflow: visible;
 }
 
 /* prevent side notes from being cut off */
 .sticky-window {
-  grid-area: notes;
   width: 100%;
   min-height: 430px;
   position: relative;
   overflow: visible;
 }
 
-/* move arrows under notes */
+/* overlay arrows on top of the active note */
+.sticky-prev,
+.sticky-next {
+  position: absolute;
+  top: clamp(38px, 7vw, 78px);
+  left: 50%;
+  z-index: 40;
+}
+
 .sticky-prev {
-  grid-area: prev;
+  transform: translate(-50%, -50%) translateX(clamp(-200px, -15vw, -140px));
 }
 
 .sticky-next {
-  grid-area: next;
-}
-
-/* make arrows sit close together under the notes */
-.sticky-arrow {
-  margin-top: -20px;
-  z-index: 20;
+  transform: translate(-50%, -50%) translateX(clamp(150px, 16vw, 240px));
 }
 
 .sticky-note.is-prev {
   opacity: 1;
-  transform: translateX(-95%) translateY(250px) rotate(-10deg) scale(0.82);
+  transform: translateX(-88%) translateY(200px) scale(0.92);
 }
 
 .sticky-note.is-next {
   opacity: 1;
-  transform: translateX(6%) translateY(250px) rotate(10deg) scale(0.82);
+  transform: translateX(0%) translateY(200px)  scale(0.92);
 }
 
 /* active note stays centered */
 .sticky-note.is-active {
   opacity: 1;
-  transform: translateX(-50%) translateY(85px) scale(1.15);
+  transform: translateX(-45%) translateY(100px) scale(1.5);
 }
 
 .sticky-content {
@@ -2204,20 +2223,20 @@ footer a {
 }
 
 .primary-btn {
-  background: #310948;
+  background: #be9502;
   color: white;
 
   box-shadow:
-    0 10px 24px rgba(59, 28, 98, 0.35);
+    0 10px 24px rgba(57, 56, 59, 0.35);
 }
 
 .primary-btn:hover {
   transform: translateY(-5px) scale(1.02);
 
-  background: #4d0b82;
+  background: #f7c100;
 
   box-shadow:
-    0 16px 28px rgba(79, 38, 90, 0.45);
+    0 16px 28px rgba(69, 66, 70, 0.45);
 }
 
 .team-back-button {

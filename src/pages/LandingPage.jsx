@@ -113,7 +113,6 @@ export default function LandingPage() {
           <div className="trailer-grid">
             <div className="trailer-copy">
               <p className="trailer-kicker">A glimpse into JustiFi</p>
-              <h2 className="trailer-title">Trailer</h2>
               <p className="trailer-description">
                 Step into a choice-driven story where every decision shapes the outcome.
                 Watch the teaser to see how JustiFi turns legal education into an
